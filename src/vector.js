@@ -81,10 +81,6 @@ Vector.areParralel = function (vect1, vect2) {
     return Vector.dotProduct(vect1.clone().lookLeft(), vect2) == 0;
 }
 
-Vector.add = function (vect1, vect2) {
-    return vect1.clone().add(vect2);
-}
-
 Vector.toRad = function (deg) {
     return deg / 180 * Math.PI;
 }
