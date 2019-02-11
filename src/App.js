@@ -14,7 +14,7 @@ import './css/main.css';
  * @view Where to use which livecycle update for what
  * 
  */
-class Root extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -71,4 +71,4 @@ class Root extends Component {
   }
 }
 
-export default Root;
+export default App;
