@@ -35,6 +35,36 @@ class AtomCanvas extends Component {
             });
         });
 
+        const center = new Vector(255 / 2, 255 / 2);
+
+        this.ellipses =  [
+            {
+                rotation: Vector.toRad(30),
+                position: center.clone(),
+                radiusX: 30,
+                radiusY: 255 / 2,
+            },
+            {
+                rotation: Vector.toRad(120 + 30),
+                position: center.clone(),
+                radiusX: 30,
+                radiusY: 255 / 2,
+            },
+            {
+                rotation: Vector.toRad(240 + 30),
+                position: center.clone(),
+                radiusX: 30,
+                radiusY: 255 / 2,
+            },
+        ];
+
+        this.circles = [
+            {
+                position: center.clone(),
+                radius: 20,
+            }
+        ];
+
         this.animatable = {
             atomFreq: 120,
             opacity: 1,
@@ -51,6 +81,10 @@ class AtomCanvas extends Component {
         this.atomDisplacement = 0;
 
         requestAnimationFrame(this.updateCanvas);
+    }
+
+    componentShouldUpdate(newProps, newState) {
+        return this.state.width !== newState.width && this.state.height !== newState.height;
     }
 
     updateCanvas() {
@@ -71,7 +105,7 @@ class AtomCanvas extends Component {
                 [600, 0.3, 0.5],
                 [500, 200, 200],
                 Trans.easeInOutQuad,
-                [0, 200, 0]
+                [0, 200, 0],
             );
         }
         
@@ -84,7 +118,7 @@ class AtomCanvas extends Component {
                 [120, 1, 1],
                 [200, 500, 500],
                 Trans.easeInOutQuad,
-                [300, 0, 0]
+                [300, 0, 0],
             );
         }
 
@@ -97,36 +131,10 @@ class AtomCanvas extends Component {
 
         const vectOffset = new Vector(this.animatable.offsetX, 0);
 
-        
-        const vectCenter = new Vector(255 / 2, 255 / 2);
+        const ellipses = this.ellipses;
+        const circles = this.circles;
 
-        const ellipses = [
-            {
-                rotation: Vector.toRad(30),
-                position: vectCenter.clone(),
-                radiusX: 30,
-                radiusY: 255 / 2,
-            },
-            {
-                rotation: Vector.toRad(120 + 30),
-                position: vectCenter.clone(),
-                radiusX: 30,
-                radiusY: 255 / 2,
-            },
-            {
-                rotation: Vector.toRad(240 + 30),
-                position: vectCenter.clone(),
-                radiusX: 30,
-                radiusY: 255 / 2,
-            },
-        ];
-
-        const circles = [
-            {
-                position: vectCenter.clone(),
-                radius: 20,
-            }
-        ];
+        const iterations = 100;
 
         ctx.clearRect(0, 0, width, height);
         ctx.lineJoin = 'miter';
@@ -134,7 +142,6 @@ class AtomCanvas extends Component {
         ctx.lineCap = 'butt';
 
         ellipses.forEach((ellipse) => {
-            const iterations = 100;
             const position = ellipse.position;
             const radiusX = ellipse.radiusX;
             const radiusY = ellipse.radiusY;

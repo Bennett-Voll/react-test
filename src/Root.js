@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Main from './header/Main.js';
 import Header from './Header.js';
+import Page from './Page.js';
 import AtomCanvas from './AtomCanvas.js';
 
 import './css/main.css';
@@ -18,6 +19,7 @@ class Root extends Component {
         <Main />
         <Header />
         <AtomCanvas />
+        <Page />
       </div>
     );
   }
