@@ -67,7 +67,7 @@ class AtomCanvas extends Component {
         };
 
         this.animation = Animation.dummy();
-        
+
         this.props.callbackIntroScroll.add((pastBoundary) => {
             this.animation.stop();
 
@@ -213,6 +213,8 @@ class AtomCanvas extends Component {
             right: '0',
             bottom: '0',
         };
+
+        console.log(this.props);
 
         return (
             <canvas

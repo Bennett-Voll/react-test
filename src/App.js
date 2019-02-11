@@ -4,6 +4,10 @@ import Header from './Header.js';
 import Page from './Page.js';
 import AtomCanvas from './AtomCanvas.js';
 
+import { connect } from "react-redux";
+import { startAction } from "./redux/actions/startAction";
+import { stopAction } from "./redux/actions/stopAction";
+
 import { Callbacks } from './helpers';
 
 import './css/main.css';
@@ -11,6 +15,9 @@ import './css/main.css';
 /**
  * @view https://react-bootstrap.github.io/
  * @view https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
+ * @view https://medium.freecodecamp.org/how-to-use-redux-in-reactjs-with-real-life-examples-687ab4441b85
+ * @view email
+ * @view https://books.goalkicker.com/
  * @view Where to use which livecycle update for what
  * 
  */
@@ -60,6 +67,8 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
+    
     return (
       <div id="root">
         <Main />
@@ -71,4 +80,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  ...state
+});
+const mapDispatchToProps = dispatch => ({
+  startAction: () => dispatch(startAction),
+  stopAction: () => dispatch(stopAction)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
