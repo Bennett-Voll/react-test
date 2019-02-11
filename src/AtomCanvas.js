@@ -29,30 +29,24 @@ class AtomCanvas extends Component {
             });
         });
 
-        window.addEventListener('scroll', () => {
-            requestAnimationFrame(() => {
-                this.scrollY = window.scrollY;
-            });
-        });
-
-        const center = new Vector(255 / 2, 255 / 2);
+        const vCenter = new Vector(255 / 2, 255 / 2);
 
         this.ellipses =  [
             {
                 rotation: Vector.toRad(30),
-                position: center.clone(),
+                position: vCenter.clone(),
                 radiusX: 30,
                 radiusY: 255 / 2,
             },
             {
                 rotation: Vector.toRad(120 + 30),
-                position: center.clone(),
+                position: vCenter.clone(),
                 radiusX: 30,
                 radiusY: 255 / 2,
             },
             {
                 rotation: Vector.toRad(240 + 30),
-                position: center.clone(),
+                position: vCenter.clone(),
                 radiusX: 30,
                 radiusY: 255 / 2,
             },
@@ -60,7 +54,7 @@ class AtomCanvas extends Component {
 
         this.circles = [
             {
-                position: center.clone(),
+                position: vCenter.clone(),
                 radius: 20,
             }
         ];
@@ -73,6 +67,30 @@ class AtomCanvas extends Component {
         };
 
         this.animation = Animation.dummy();
+        
+        this.props.callbackIntroScroll.add((pastBoundary) => {
+            this.animation.stop();
+
+            if (pastBoundary) {
+                this.animation = Animation.animate(
+                    this.animatable,
+                    ['atomFreq', 'opacity', 'size'],
+                    [600, 0.3, 0.5],
+                    [500, 200, 200],
+                    Trans.easeInOutQuad,
+                    [0, 200, 0],
+                );
+            } else {
+                this.animation = Animation.animate(
+                    this.animatable,
+                    ['atomFreq', 'opacity', 'size'],
+                    [120, 1, 1],
+                    [200, 500, 500],
+                    Trans.easeInOutQuad,
+                    [300, 0, 0],
+                );
+            }
+        });
 
         this.time = 0;
         this.scrollY = 0;
@@ -93,36 +111,6 @@ class AtomCanvas extends Component {
         const width = this.state.width;
         const height = this.state.height;
         const size = Math.min(width, height) * this.animatable.size;
-
-        const scrollY = this.scrollY;
-
-        if (scrollY > 10 && this.prevScrollY <= 10) {
-            this.animation.stop();
-
-            this.animation = Animation.animate(
-                this.animatable,
-                ['atomFreq', 'opacity', 'size'],
-                [600, 0.3, 0.5],
-                [500, 200, 200],
-                Trans.easeInOutQuad,
-                [0, 200, 0],
-            );
-        }
-        
-        if (scrollY < 10 && this.prevScrollY > 10) {
-            this.animation.stop();
-
-            this.animation = Animation.animate(
-                this.animatable,
-                ['atomFreq', 'opacity', 'size'],
-                [120, 1, 1],
-                [200, 500, 500],
-                Trans.easeInOutQuad,
-                [300, 0, 0],
-            );
-        }
-
-        this.prevScrollY = scrollY;
 
         const atomDisplacement = this.atomDisplacement;
         this.atomDisplacement += map(1, 0, this.animatable.atomFreq, 0, Math.PI * 2)
@@ -189,16 +177,16 @@ class AtomCanvas extends Component {
         });
 
         circles.forEach((circle) => {
-            const position = circle.position;
-            const radius = circle.radius;
+            const circlePosition = circle.position;
+            const circleRadius = circle.radius;
 
-            const absPosition = position.clone().scale(1 / 255);
+            const absPosition = circlePosition.clone().scale(1 / 255);
 
             absPosition.add(vectOffset);
             absPosition.x *= width;
             absPosition.y *= height;
 
-            ctx.arc(absPosition.x, absPosition.y, radius / 255 * size, 0, Math.PI * 2);
+            ctx.arc(absPosition.x, absPosition.y, circleRadius / 255 * size, 0, Math.PI * 2);
             
             const rgb = [
                 97,
