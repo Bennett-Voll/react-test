@@ -15,8 +15,8 @@ class Header extends Component {
         Trigger.on('introScroll', (pastBoundary) => {
             this.setState({
                 headerIsCollapsed: pastBoundary,
-            })
-        })
+            });
+        });
     }
 
     render() {

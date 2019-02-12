@@ -11,7 +11,6 @@ const Animation = {
     Control: class {
         constructor() {
             this.stopped = false;
-            this.paused = false;
         }
         
         stop() {
@@ -65,8 +64,6 @@ const Animation = {
             return;
         }
 
-        console.log(arguments)
-
         callback(transition(
             timeNow - startTime,
             startVal,
@@ -90,20 +87,14 @@ const Animation = {
      */
     animate(obj, prop, endVal, duration, transition, delay = 0) {
         const control = new this.Control();
+        const props = [].concat(prop);
+        const endVals = [].concat(endVal);
     
-        if ( ! prop instanceof Array) {
-            prop = [prop];
-        }
-    
-        if ( ! endVal instanceof Array) {
-            endVal = [endVal];
-        }
-    
-        prop.forEach((thisProp, i) => {            
+        props.forEach((thisProp, i) => {            
             const thisDuration = duration instanceof Array ? duration[i] : duration;
             const thisDelay = delay instanceof Array ? delay[i] : delay;
             const thisTransition = transition instanceof Array ? transition[i] : transition;
-            const thisEndVal = endVal[i];
+            const thisEndVal = endVals[i];
         
             const startTime =  this.now() + thisDelay;
             const startVal = obj[thisProp];
@@ -119,17 +110,51 @@ const Animation = {
 
     /**
      * Call an callback instead of changing a property
+     * Each of the callback's parameters represents the current value
      * 
-     * @param {Function} callback
-     * @param {String} startVal
-     * @param {Number} endVal
-     * @param {Number} duration
-     * @param {Function} transition Transition functions from the transition module
-     * @param {Number} delay
+     * @todo Make sure that if arrays have been passed that they're of equal length
+     * 
+     * @param {Object} obj An object in which we need to animate the properties
+     * @param {Array|String} startVal A value or an array of value at which we start animating
+     * @param {Array|Number} endVal A value or an array of values at which we need to stop animating
+     * @param {Array|Number} duration 
+     * @param {Array|Function} transition Transition functions from the transition module
+     * @param {Array|Number} delay
      * @return {Control} 
      */
     animateCallback(callback, startVal, endVal, duration, transition, delay = 0) {
         const control = new this.Control();
+
+        const startVals = [].concat(startVal);
+        const endVals = [].concat(endVal);
+
+        const propCount = startVals.length;
+
+        let callbackArguments = new Array(propCount);
+        let count = 0;
+    
+        startVals.forEach((thisStartVal, i) => {
+            const thisDuration = duration instanceof Array ? duration[i] : duration;
+            const thisDelay = delay instanceof Array ? delay[i] : delay;
+            const thisTransition = transition instanceof Array ? transition[i] : transition;
+
+            const startTime =  this.now() + thisDelay;
+            const changeInVal = endVals[i] - startVal;
+
+            this.startTimer((val) => {
+                count += 1;
+
+                callbackArguments[i] = val;
+
+                if (count === propCount) {
+                    count = 0;
+
+                    callback(...callbackArguments);
+                }
+
+            }, thisStartVal, changeInVal, startTime, thisDuration, thisTransition, control);
+        });
+
         const startTime =  this.now() + delay;
         const changeInVal = endVal - startVal;
 
@@ -140,5 +165,7 @@ const Animation = {
 }
 
 Animation.dummy = () => new Animation.Control();
+
+window.Animation = Animation;
 
 export default Animation;
