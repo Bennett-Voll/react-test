@@ -56,8 +56,6 @@ const Animation = {
             const thisTransition = transition instanceof Array ? transition[i] : transition;
             const thisEndVal = endVal[i];
         
-            console.log(thisDelay);
-
             const startTime =  this.now() + thisDelay;
             const startValue = obj[thisProp];
             const changeInValue = thisEndVal - startValue;
@@ -95,7 +93,57 @@ const Animation = {
         });
     
         return control;
-    }
+    },
+
+    /**
+     * Call an callback instead of changing a property
+     * 
+     * @param {Function} callback
+     * @param {String} startVal
+     * @param {Number} endVal
+     * @param {Number} duration 
+     * @param {Function} transition Transition functions from the transition module
+     * @param {Number} delay
+     * @return {Control} 
+     */
+    animateCallback(callback, startVal, endVal, duration, transition, delay = 0) {
+        const control = new this.Control();
+        const startTime =  this.now() + delay;
+        const changeInValue = endVal - startVal;
+
+        const timer = () => {
+            const timeNow = this.now();
+    
+            if (control.stopped) {
+                return;
+            }
+
+            if (timeNow - startTime > duration) {
+                callback(endVal);
+
+                return;
+            }
+
+            if (timeNow - startTime < 0) {
+                requestAnimationFrame(timer);
+
+                return;
+            }
+            
+            callback(transition(
+                timeNow - startTime,
+                startVal,
+                changeInValue,
+                duration,
+            ));
+    
+            requestAnimationFrame(timer);
+        };
+    
+        requestAnimationFrame(timer);
+
+        return control;
+    },
 }
 
 Animation.dummy = () => new Animation.Control();

@@ -11,6 +11,32 @@ class AtomCanvas extends Component {
     constructor(props) {
         super(props);
 
+        this.animation = Animation.dummy();
+        
+        this.props.callbackIntroScroll.add((pastBoundary) => {
+            this.animation.stop();
+
+            if (pastBoundary) {
+                this.animation = Animation.animate(
+                    this.animatable,
+                    ['atomFreq', 'opacity', 'size'],
+                    [600, 0.3, 0.5],
+                    [500, 200, 200],
+                    Trans.easeInOutQuad,
+                    [0, 200, 0],
+                );
+            } else {
+                this.animation = Animation.animate(
+                    this.animatable,
+                    ['atomFreq', 'opacity', 'size'],
+                    [120, 1, 1],
+                    [200, 500, 500],
+                    Trans.easeInOutQuad,
+                    [300, 0, 0],
+                );
+            }
+        });
+
         this.state = {
             width: window.innerWidth,
             height: window.innerHeight,
@@ -66,32 +92,6 @@ class AtomCanvas extends Component {
             offsetX: 0,
         };
 
-        this.animation = Animation.dummy();
-        
-        this.props.callbackIntroScroll.add((pastBoundary) => {
-            this.animation.stop();
-
-            if (pastBoundary) {
-                this.animation = Animation.animate(
-                    this.animatable,
-                    ['atomFreq', 'opacity', 'size'],
-                    [600, 0.3, 0.5],
-                    [500, 200, 200],
-                    Trans.easeInOutQuad,
-                    [0, 200, 0],
-                );
-            } else {
-                this.animation = Animation.animate(
-                    this.animatable,
-                    ['atomFreq', 'opacity', 'size'],
-                    [120, 1, 1],
-                    [200, 500, 500],
-                    Trans.easeInOutQuad,
-                    [300, 0, 0],
-                );
-            }
-        });
-
         this.time = 0;
         this.scrollY = 0;
         this.prevScrollY = null;
@@ -101,7 +101,7 @@ class AtomCanvas extends Component {
         requestAnimationFrame(this.updateCanvas);
     }
 
-    componentShouldUpdate(newProps, newState) {
+    shouldComponentUpdate(newProps, newState) {
         return this.state.width !== newState.width && this.state.height !== newState.height;
     }
 

@@ -64,8 +64,8 @@ class App extends Component {
       <div id="root">
         <Main />
         <Header callbackIntroScroll={this.callbackIntroScroll} />
+        <Page callbackIntroScroll={this.callbackIntroScroll} />
         <AtomCanvas callbackIntroScroll={this.callbackIntroScroll} />
-        <Page />
       </div>
     );
   }
