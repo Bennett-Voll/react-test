@@ -141,10 +141,10 @@ const Animation = {
             const startTime =  this.now() + thisDelay;
             const changeInVal = endVals[i] - thisStartVal;
 
+            // this is a bit silly, but it works
+            // TODO: make is less silly
             this.startTimer((val) => {
                 count += 1;
-
-                console.log(val);
 
                 callbackArguments[i] = val;
 
@@ -156,11 +156,6 @@ const Animation = {
 
             }, thisStartVal, changeInVal, startTime, thisDuration, thisTransition, control);
         });
-
-        const startTime =  this.now() + delay;
-        const changeInVal = endVal - startVal;
-
-        this.startTimer(callback, startVal, changeInVal, startTime, duration, transition, control);
 
         return control;
     },
