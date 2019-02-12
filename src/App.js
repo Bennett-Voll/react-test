@@ -19,34 +19,67 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    Trigger.add('windowResize');
     Trigger.add('introScroll');
+
+    this.onScroll = this.onScroll.bind(this);
+    this.onResize = this.onResize.bind(this); 
+
+    this.window = {
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
   }
 
   componentDidMount() {
     this.scrollBoundary = 10;
     this.pastScrollBoundary = false;
 
-    window.addEventListener('scroll', () => {
-      requestAnimationFrame(() => {
-        this.scroll = {
-          scrollX: window.scrollX,
-          scrollY: window.scrollY,
-        };
+    window.addEventListener('scroll', this.onScroll);
+    window.addEventListener('scroll', this.onResize);
+  }
 
-        const scrollY = this.scroll.scrollY;
-        const scrollBoundary = this.scrollBoundary;
-        const pastScrollBoundary = this.pastScrollBoundary;
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onResize);
+  }
 
-        if (scrollY > scrollBoundary && !pastScrollBoundary) {
-          Trigger.fire('introScroll', true);
-          this.pastScrollBoundary = true;
-        }
+  onScroll() {
+    requestAnimationFrame(() => {
+      this.scroll = {
+        scrollX: window.scrollX,
+        scrollY: window.scrollY,
+      };
 
-        if (scrollY <= scrollBoundary && pastScrollBoundary) {
-          Trigger.fire('introScroll', false);
-          this.pastScrollBoundary = false;
-        }
-      });
+      const scrollY = this.scroll.scrollY;
+      const scrollBoundary = this.scrollBoundary;
+      const pastScrollBoundary = this.pastScrollBoundary;
+
+      if (scrollY > scrollBoundary && !pastScrollBoundary) {
+        Trigger.fire('introScroll', true);
+        this.pastScrollBoundary = true;
+      }
+
+      if (scrollY <= scrollBoundary && pastScrollBoundary) {
+        Trigger.fire('introScroll', false);
+        this.pastScrollBoundary = false;
+      }
+    });
+  }
+
+  onResize() {
+    requestAnimationFrame(() => {
+      if (window.innerWidth !== this.window.width ||
+        window.innerHeight !== this.window.height) {
+        Trigger.fire('windowResize', {
+          ...this.window,
+        });
+      }
+
+      this.window = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
     });
   }
 
