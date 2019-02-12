@@ -4,7 +4,7 @@ import Header from './Header.js';
 import Page from './Page.js';
 import AtomCanvas from './AtomCanvas.js';
 
-import { Callbacks } from './helpers';
+import { Trigger } from './helpers';
 
 import './css/main.css';
 
@@ -18,17 +18,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    /*
-      TODO:
-        This callback method shouldn't be defined in any compnonent, but globally, and shouldn't be
-        passed via componment to componement.
-        
-        I fucking need to learn redux
-
-        EDIT: on hindsight, it may be set in a component, but should still be stored globally
-    */
-
-    this.callbackIntroScroll = new Callbacks();
+    Trigger.add('introScroll');
   }
 
   componentDidMount() {
@@ -45,14 +35,14 @@ class App extends Component {
         const scrollY = this.scroll.scrollY;
         const scrollBoundary = this.scrollBoundary;
         const pastScrollBoundary = this.pastScrollBoundary;
-        
-        if (scrollY > scrollBoundary && ! pastScrollBoundary) {
-          this.callbackIntroScroll.fire(true);
+
+        if (scrollY > scrollBoundary && !pastScrollBoundary) {
+          Trigger.fire('introScroll', true);
           this.pastScrollBoundary = true;
-        } 
+        }
 
         if (scrollY <= scrollBoundary && pastScrollBoundary) {
-          this.callbackIntroScroll.fire(false);
+          Trigger.fire('introScroll', false);
           this.pastScrollBoundary = false;
         }
       });
@@ -63,9 +53,9 @@ class App extends Component {
     return (
       <div id="root">
         <Main />
-        <Header callbackIntroScroll={this.callbackIntroScroll} />
-        <Page callbackIntroScroll={this.callbackIntroScroll} />
-        <AtomCanvas callbackIntroScroll={this.callbackIntroScroll} />
+        <Header />
+        <Page />
+        <AtomCanvas />
       </div>
     );
   }

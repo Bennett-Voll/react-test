@@ -3,6 +3,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import Animation from './animation';
 import Trans from './transitions';
 
+import { Trigger } from './helpers';
+
 class Page extends Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,7 @@ class Page extends Component {
             top: window.innerHeight,
         };
 
-        props.callbackIntroScroll.add((pastBoundary) => {
+        Trigger.on('introScroll', (pastBoundary) => {
             this.animation.stop();
 
             const endVal = pastBoundary ? 0 : window.innerHeight;

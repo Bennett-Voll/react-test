@@ -4,6 +4,8 @@ import { map } from './helpers';
 import Trans from './transitions';
 import Animation from './animation';
 
+import { Trigger } from './helpers';    
+
 /**
  * @todo Refactor code
  */
@@ -13,7 +15,7 @@ class AtomCanvas extends Component {
 
         this.animation = Animation.dummy();
         
-        this.props.callbackIntroScroll.add((pastBoundary) => {
+        Trigger.on('introScroll', (pastBoundary) => {
             this.animation.stop();
 
             if (pastBoundary) {

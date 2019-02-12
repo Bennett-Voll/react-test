@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import logo from './img/logo.svg';
 
+import { Trigger } from './helpers';  
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -9,20 +11,12 @@ class Header extends Component {
         this.state = {
             headerIsCollapsed: false,
         };
-    }
 
-    componentDidMount() {
-        window.addEventListener('scroll', () => {
-            requestAnimationFrame(() => {
-                this.setState({
-                    headerIsCollapsed: window.scrollY > 10,
-                });
-            });
-        });
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return nextState.headerIsCollapsed !== this.state.headerIsCollapsed;
+        Trigger.on('introScroll', (pastBoundary) => {
+            this.setState({
+                headerIsCollapsed: pastBoundary,
+            })
+        })
     }
 
     render() {
