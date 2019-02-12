@@ -29,6 +29,55 @@ const Animation = {
     },
 
     /**
+     * Recurve method that handles the animation from on value to another
+     * A callback will be called on each subsequent frame until it reaches the end
+     * First parameter of the callback will be the current value
+     *
+     * @param {Function} callback 
+     * @param {Number} startVal
+     * @param {Number} changeInVal
+     * @param {Number} startTime In miliseconds
+     * @param {Number} duration In miliseconds
+     * @param {Function} transition The type of transition to apply
+     * @param {Control} control The control object
+     * @return {Void}
+     */
+    startTimer(callback, startVal, changeInVal, startTime, duration, transition, control) {
+        const timeNow = this.now();
+        const timer = this.startTimer.bind(this, ...arguments);
+
+        if (control.stopped) {
+            return;
+        }
+
+        // end has been reached, set immediately to endvalue
+        if (timeNow - startTime > duration) {
+            callback(startVal + changeInVal);
+
+            return;
+        }
+
+        // implies a delay was added to startTime,
+        // wait until correct time has passed
+        if (timeNow - startTime < 0) {
+            requestAnimationFrame(timer);
+
+            return;
+        }
+
+        console.log(arguments)
+
+        callback(transition(
+            timeNow - startTime,
+            startVal,
+            changeInVal,
+            duration,
+        ));
+
+        requestAnimationFrame(timer);
+    },
+
+    /**
      * Animate properties within the given object
      * 
      * @param {Object} obj An object in which we need to animate the properties
@@ -57,39 +106,12 @@ const Animation = {
             const thisEndVal = endVal[i];
         
             const startTime =  this.now() + thisDelay;
-            const startValue = obj[thisProp];
-            const changeInValue = thisEndVal - startValue;
+            const startVal = obj[thisProp];
+            const changeInVal = thisEndVal - startVal;
 
-            const timer = () => {
-                const timeNow = this.now();
-        
-                if (control.stopped) {
-                    return;
-                }
-
-                if (timeNow - startTime > thisDuration) {
-                    obj[thisProp] = thisEndVal;
-
-                    return;
-                }
-
-                if (timeNow - startTime < 0) {
-                    requestAnimationFrame(timer);
-
-                    return;
-                }
-                
-                obj[thisProp] = thisTransition(
-                    timeNow - startTime,
-                    startValue,
-                    changeInValue,
-                    thisDuration,
-                );
-        
-                requestAnimationFrame(timer);
-            };
-        
-            requestAnimationFrame(timer);
+            this.startTimer((val) => {
+                obj[thisProp] = val;
+            }, startVal, changeInVal, startTime, thisDuration, thisTransition, control);
         });
     
         return control;
@@ -101,7 +123,7 @@ const Animation = {
      * @param {Function} callback
      * @param {String} startVal
      * @param {Number} endVal
-     * @param {Number} duration 
+     * @param {Number} duration
      * @param {Function} transition Transition functions from the transition module
      * @param {Number} delay
      * @return {Control} 
@@ -109,38 +131,9 @@ const Animation = {
     animateCallback(callback, startVal, endVal, duration, transition, delay = 0) {
         const control = new this.Control();
         const startTime =  this.now() + delay;
-        const changeInValue = endVal - startVal;
+        const changeInVal = endVal - startVal;
 
-        const timer = () => {
-            const timeNow = this.now();
-    
-            if (control.stopped) {
-                return;
-            }
-
-            if (timeNow - startTime > duration) {
-                callback(endVal);
-
-                return;
-            }
-
-            if (timeNow - startTime < 0) {
-                requestAnimationFrame(timer);
-
-                return;
-            }
-            
-            callback(transition(
-                timeNow - startTime,
-                startVal,
-                changeInValue,
-                duration,
-            ));
-    
-            requestAnimationFrame(timer);
-        };
-    
-        requestAnimationFrame(timer);
+        this.startTimer(callback, startVal, changeInVal, startTime, duration, transition, control);
 
         return control;
     },
