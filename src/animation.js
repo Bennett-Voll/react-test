@@ -32,7 +32,7 @@ const Animation = {
      * A callback will be called on each subsequent frame until it reaches the end
      * First parameter of the callback will be the current value
      *
-     * @param {Function} callback 
+     * @param {Function} callback
      * @param {Number} startVal
      * @param {Number} changeInVal
      * @param {Number} startTime In miliseconds
@@ -139,10 +139,12 @@ const Animation = {
             const thisTransition = transition instanceof Array ? transition[i] : transition;
 
             const startTime =  this.now() + thisDelay;
-            const changeInVal = endVals[i] - startVal;
+            const changeInVal = endVals[i] - thisStartVal;
 
             this.startTimer((val) => {
                 count += 1;
+
+                console.log(val);
 
                 callbackArguments[i] = val;
 
