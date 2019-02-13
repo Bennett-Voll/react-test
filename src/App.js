@@ -21,10 +21,16 @@ class App extends Component {
     super(props);
 
     Trigger.add('windowResize');
+    Trigger.add('scroll');
     Trigger.add('introScroll');
 
     this.onScroll = this.onScroll.bind(this);
     this.onResize = this.onResize.bind(this); 
+
+    // the below are used to store the ids returned by requestAnimationFrame
+    // so to not repeat a callback multiple times during a frame 
+    this.frameScroll = null;
+    this.frameResize = null;
 
     this.window = {
       width: window.innerWidth,
@@ -46,11 +52,19 @@ class App extends Component {
   }
 
   onScroll() {
-    requestAnimationFrame(() => {
+    if (this.frameScroll) {
+      return;
+    }
+
+    this.frameScroll = requestAnimationFrame(() => {
+      this.frameScroll = null;
+
       this.scroll = {
         scrollX: window.scrollX,
         scrollY: window.scrollY,
       };
+
+      Trigger.fire('scroll', this.scroll);
 
       const scrollY = this.scroll.scrollY;
       const scrollBoundary = this.scrollBoundary;
@@ -69,7 +83,13 @@ class App extends Component {
   }
 
   onResize() {
-    requestAnimationFrame(() => {
+    if (this.frameResize) {
+      return;
+    }
+
+    this.frameResize = requestAnimationFrame(() => {
+      this.frameResize = null;
+      
       if (window.innerWidth !== this.window.width ||
         window.innerHeight !== this.window.height) {
         Trigger.fire('windowResize', {
@@ -86,12 +106,14 @@ class App extends Component {
 
   render() {
     return (
-      <div id="root">
+      <div id="app">
         <Main />
-        <Header />
-        <Banner />
-        <Page />
         <AtomCanvas />
+        <div id="foreground">
+          <Header />
+          <Banner />
+          <Page />
+        </div>
       </div>
     );
   }
