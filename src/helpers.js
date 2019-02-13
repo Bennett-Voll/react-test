@@ -37,9 +37,7 @@ export class Trigger {
      * Arguments given will be passed onto the each callback
      * 
      */
-    fire() {
-        const args = arguments;
-
+    fire(...args) {
         this.callbacks.forEach((callback) => {
             callback(...args);
         });
