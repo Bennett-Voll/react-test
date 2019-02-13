@@ -6,16 +6,6 @@ import { Trigger } from './helpers';
 class Page extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            windowHeight: window.innerHeight,
-        };
-
-        Trigger.on('windowResize', (size) => {
-            this.setState({
-                windowHeight: size.height,
-            });
-        })
     }
 
     render() {
@@ -35,7 +25,7 @@ class Page extends Component {
 
         return (
             <div id="page" style={{ backgroundColor: '#fff', }}>
-                <Container style={{ marginTop: this.state.windowHeight, }}>
+                <Container>
                     <Row>
                         <Col>
                             <div style={styleHeader}>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Main from './header/Main.js';
-import Header from './Header.js';
-import Page from './Page.js';
-import AtomCanvas from './AtomCanvas.js';
+import Main from './header/Main';
+import Header from './Header';
+import Page from './Page';
+import AtomCanvas from './AtomCanvas';
+import Banner from './Banner';
 
 import { Trigger } from './helpers';
 
@@ -88,6 +89,7 @@ class App extends Component {
       <div id="root">
         <Main />
         <Header />
+        <Banner />
         <Page />
         <AtomCanvas />
       </div>
