@@ -6,9 +6,15 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
 
-  /* The below is for testing */
-  min-height: 200vh;
+#app {
+  background-color: #272B33;
+}
+
+#foreground {
+  position: relative;
+  z-index: 1;
 }
 
 code {
