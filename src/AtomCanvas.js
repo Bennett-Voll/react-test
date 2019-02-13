@@ -32,11 +32,18 @@ class AtomCanvas extends Component {
                     this.animatable,
                     ['atomFreq', 'opacity', 'size'],
                     [120, 1, 1],
-                    [200, 500, 500],
+                    [200, 500, 200],
                     Trans.easeInOutQuad,
                     [300, 0, 0],
                 );
             }
+        });
+
+        Trigger.on('windowResize', (dimensions) => {
+            this.setState({
+                width: dimensions.width,
+                height: dimensions.height,
+            });
         });
 
         this.state = {
@@ -48,15 +55,6 @@ class AtomCanvas extends Component {
     }
 
     componentDidMount() {
-        window.addEventListener('resize', () => {
-            requestAnimationFrame(() => {
-                this.setState({
-                    width: window.innerWidth,
-                    height: window.innerHeight,
-                });
-            });
-        });
-
         const vCenter = new Vector(255 / 2, 255 / 2);
 
         this.ellipses =  [
