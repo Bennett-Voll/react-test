@@ -15,18 +15,22 @@ header.intro {
 header .main-nav {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    border-top: 2px solid #61D9FA;
 }
 
 header .main-nav .nav-item {
-    color: #20232a;
+    color: #61D9FA;
     font-size: 15px;
     cursor: pointer;
-    padding: 0 10px;
-    font-family: Arial, Helvetica, sans-serif;
+    padding: 0 15px;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
     transition: 300ms ease-in-out;
 }
 
-header.intro .main-nav .nav-item { color: #fff; }
+header .main-nav .nav-item:last-child {
+    padding-right: 0;
+}
 
 header #logo {
     max-width: 100%;

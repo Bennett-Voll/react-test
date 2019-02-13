@@ -54,7 +54,7 @@ class Header extends Component {
                                 <img style={{... styleImg}} src={logo} alt="logo" />
                             </div>
                         </Col>
-                        <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', }}>
+                        <Col style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'flex-end', }}>
                             <div className="main-nav">
                                 {
                                     navItems
