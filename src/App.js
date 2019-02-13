@@ -14,6 +14,7 @@ import './css/main.css';
  * @view https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
  * @view Where to use which livecycle update for what
  * @view https://www.valentinog.com/blog/redux/#React_Redux_tutorial_who_this_guide_is_for
+ * @view https://reacttraining.com/react-router/web/example/auth-workflow
  * 
  */
 class App extends Component {
