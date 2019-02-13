@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Main from './header/Main';
+import LoadBootstrap from './header/LoadBootstrap';
 import Header from './Header';
 import Page from './Page';
 import AtomCanvas from './AtomCanvas';
@@ -107,7 +107,7 @@ class App extends Component {
   render() {
     return (
       <div id="app">
-        <Main />
+        <LoadBootstrap />
         <AtomCanvas />
         <div id="foreground">
           <Header />
