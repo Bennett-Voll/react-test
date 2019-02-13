@@ -15,6 +15,7 @@ class AtomCanvas extends Component {
 
         this.animation = Animation.dummy();
         
+        // intro animations
         Trigger.on('introScroll', (pastBoundary) => {
             this.animation.stop();
 
@@ -22,7 +23,7 @@ class AtomCanvas extends Component {
                 this.animation = Animation.animate(
                     this.animatable,
                     ['atomFreq', 'opacity', 'size'],
-                    [600, 0.3, 0.5],
+                    [800, 0.3, 0.5],
                     [500, 200, 200],
                     Trans.easeInOutQuad,
                     [0, 200, 0],
@@ -31,7 +32,7 @@ class AtomCanvas extends Component {
                 this.animation = Animation.animate(
                     this.animatable,
                     ['atomFreq', 'opacity', 'size'],
-                    [120, 1, 1],
+                    [120, 1, 0.9],
                     [200, 500, 200],
                     Trans.easeInOutQuad,
                     [300, 0, 0],
@@ -55,8 +56,10 @@ class AtomCanvas extends Component {
     }
 
     componentDidMount() {
+        // relative centerpoint for both the ellipses as the cricle
         const vCenter = new Vector(255 / 2, 255 / 2);
 
+        // define properties of the ellipses
         this.ellipses =  [
             {
                 rotation: Vector.toRad(30),
@@ -78,6 +81,7 @@ class AtomCanvas extends Component {
             },
         ];
 
+        // define properties of the circles
         this.circles = [
             {
                 position: vCenter.clone(),
@@ -88,13 +92,9 @@ class AtomCanvas extends Component {
         this.animatable = {
             atomFreq: 120,
             opacity: 1,
-            size: 1,
-            offsetX: 0,
+            size: 0.9,
+            offsetY: -10,
         };
-
-        this.time = 0;
-        this.scrollY = 0;
-        this.prevScrollY = null;
 
         this.atomDisplacement = 0;
 
@@ -103,11 +103,10 @@ class AtomCanvas extends Component {
 
     shouldComponentUpdate(newProps, newState) {
         return this.state.width !== newState.width && this.state.height !== newState.height;
-    }
+    }   
 
     updateCanvas() {
         const ctx = this.ctx;
-        const time = this.time;
         const width = this.state.width;
         const height = this.state.height;
         const size = Math.min(width, height) * this.animatable.size;
@@ -117,32 +116,34 @@ class AtomCanvas extends Component {
 
         ctx.globalAlpha = this.animatable.opacity;
 
-        const vectOffset = new Vector(this.animatable.offsetX, 0);
+        const vectOffset = new Vector(0, this.animatable.offsetY);
 
         const ellipses = this.ellipses;
         const circles = this.circles;
 
-        const iterations = 100;
+        const iterations = 80;
 
         ctx.clearRect(0, 0, width, height);
-        ctx.lineJoin = 'miter';
-        ctx.lineWidth = '10';
+        ctx.lineWidth = Math.round(5 / 255 * size);
         ctx.lineCap = 'butt';
 
+        // draw ellipses
         ellipses.forEach((ellipse) => {
             const position = ellipse.position;
             const radiusX = ellipse.radiusX;
             const radiusY = ellipse.radiusY;
             const rotation = ellipse.rotation;
             
-            const absPosition = position.clone().scale(1 / 255);
+            const absPosition = position.clone();
             
             absPosition.add(vectOffset);
+            absPosition.scale(1 / 255);
             absPosition.x *= width;
             absPosition.y *= height;
 
             let vectPrev = null;
 
+            // go over every point of the ellipse
             for (let i = 0; i < iterations; i += 1) {                
                 const offset = Math.PI * 2 / iterations * i + atomDisplacement;
                 const point = new Vector(radiusX * Math.cos(offset), radiusY * Math.sin(offset));
@@ -161,32 +162,36 @@ class AtomCanvas extends Component {
                     ctx.moveTo(Math.round(vect.x), Math.round(vect.y));
                 }
 
+                // higher iteration === color more like on the right side
                 const rgb = [
-                    255 - (255 - 97) / iterations * i,
-                    255 - (255 - 217) / iterations * i,
-                    255 - (255 - 250) / iterations * i,
+                    map(i, 0, iterations - 1, 38, 97),
+                    map(i, 0, iterations - 1, 42, 217),
+                    map(i, 0, iterations - 1, 50, 250),
                 ];
 
                 ctx.strokeStyle = `rgb(${rgb.join(',')})`;
 
-                ctx.stroke();
-                ctx.closePath();
+                ctx.stroke();   
                 
                 vectPrev = vect;
             }
+
+            ctx.closePath();
         });
 
+        // drawing circles
         circles.forEach((circle) => {
-            const circlePosition = circle.position;
-            const circleRadius = circle.radius;
+            const position = circle.position;
+            const radius = circle.radius;
 
-            const absPosition = circlePosition.clone().scale(1 / 255);
-
+            const absPosition = position.clone();
+            
             absPosition.add(vectOffset);
+            absPosition.scale(1 / 255);
             absPosition.x *= width;
             absPosition.y *= height;
 
-            ctx.arc(absPosition.x, absPosition.y, circleRadius / 255 * size, 0, Math.PI * 2);
+            ctx.arc(absPosition.x, absPosition.y, radius / 255 * size, 0, Math.PI * 2);
             
             const rgb = [
                 97,
@@ -198,8 +203,6 @@ class AtomCanvas extends Component {
             ctx.fill();
         });
 
-        this.time += 1;
-
         requestAnimationFrame(this.updateCanvas);
     }
 
@@ -207,7 +210,6 @@ class AtomCanvas extends Component {
         const styleCanvas = {
             display: 'block',
             position: 'fixed',
-            zIndex: '-1',
             top: '0',
             left: '0',
             right: '0',
