@@ -4,6 +4,8 @@ import logo from './img/logo.svg';
 
 import { Trigger } from './helpers';  
 
+import './css/header.css';
+
 class Header extends Component {
     constructor(props) {
         super(props);
@@ -20,44 +22,46 @@ class Header extends Component {
     }
 
     render() {
-        let headerHeight = 100;
+        let headerHeight = 80;
+        let className = '';
 
         if (this.state.headerIsCollapsed) {
-            headerHeight = 50;
+            headerHeight = 40;
+            className = 'intro';
         }
 
+        const navItems = [
+            'Home',
+            'About',
+            'Contact',
+        ];
+
         const styleHeader = {
-            position: 'fixed',
-            top: '0',
-            left: '0',
-            right: '0',
-            backgroundColor: '#000',
             height: headerHeight,
-            transition: '300ms ease-in-out',
         };
 
-        const styleLogo = {
-            height: headerHeight,
-            maxWidth: '100%',
-            transition: '300ms ease-in-out',
-        };
 
         const styleImg = {
-            display: 'block',
-            maxHeight: '100%',
+            height: headerHeight,
         };
 
         return (
-            <header style={{... styleHeader}}>
+            <header className={className} style={{... styleHeader}}>
                 <Container>
                     <Row>
                         <Col>
-                            <div id="logo" style={{... styleLogo}}>
+                            <div id="logo">
                                 <img style={{... styleImg}} src={logo} alt="logo" />
                             </div>
                         </Col>
-                        <Col style={{ display: 'flex', alignItems: 'center', }}>
-                            Test2
+                        <Col style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', }}>
+                            <div className="main-nav">
+                                {
+                                    navItems
+                                        .map(t => <div className="nav-item">{t}</div>)
+                                        .reduce((prev, curr) => [prev, curr])
+                                }
+                            </div>
                         </Col>
                     </Row>
                 </Container>
