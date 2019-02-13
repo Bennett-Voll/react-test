@@ -1,12 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Oxygen:700');
+
 #banner {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    padding-bottom: 2vh;
     height: 100vh;
 }
 
 #banner .text {
     font-size: 64px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-family: Oxygen, Helvetica, sans-serif;
+    font-weight: bolder;
+    color: #61D9FA;
 }

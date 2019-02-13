@@ -17,7 +17,7 @@ class Banner extends Component {
                 <Row>
                     <Col>
                         <div className="text">
-                            React JS
+                            React
                         </div>
                     </Col>
                 </Row>
