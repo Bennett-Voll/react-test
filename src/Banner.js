@@ -7,8 +7,6 @@ import './css/banner.css';
 class Banner extends Component {
     constructor(props) {
         super(props);
-
-
     }
 
     render() {
@@ -16,7 +14,7 @@ class Banner extends Component {
             <Container id="banner" fluid>
                 <Row>
                     <Col>
-                        <div className="text">
+                        <div className="text text-banner">
                             React
                         </div>
                     </Col>

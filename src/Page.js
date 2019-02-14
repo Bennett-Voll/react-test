@@ -14,26 +14,26 @@ class Page extends Component {
             <div id="page" style={{ backgroundColor: '#fff', }}>
                 <Section section_row="1">
                     <Col>
-                        <div className="header">
+                        <div className="text header-2">
                             Magnificent
                         </div> 
-                        <div className="text">
+                        <div className="text text-normal">
                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
                         </div>
                     </Col>
                     <Col>
-                        <div className="header">
+                        <div className="text header-2">
                             Quite good
                         </div> 
-                        <div className="text">
+                        <div className="text text-normal">
                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
                         </div>
                     </Col>
                     <Col>
-                        <div className="header">
+                        <div className="text header-2">
                             Perplexing
                         </div> 
-                        <div className="text">
+                        <div className="text text-normal">
                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
                         </div>
                     </Col>
