@@ -22,6 +22,7 @@ header .main-nav {
 header .main-nav .nav-item {
     color: #61D9FA;
     font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
     padding: 0 15px;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
