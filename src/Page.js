@@ -13,7 +13,7 @@ class Page extends Component {
         return (
             <div id="page" style={{ backgroundColor: '#fff', }}>
                 <Section section_row="1">
-                    <Col>
+                    <Col md>
                         <div className="text header-2">
                             Magnificent
                         </div> 
@@ -21,7 +21,7 @@ class Page extends Component {
                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
                         </div>
                     </Col>
-                    <Col>
+                    <Col md>
                         <div className="text header-2">
                             Quite good
                         </div> 
@@ -29,7 +29,7 @@ class Page extends Component {
                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
                         </div>
                     </Col>
-                    <Col>
+                    <Col md>
                         <div className="text header-2">
                             Perplexing
                         </div> 
