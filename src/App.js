@@ -44,7 +44,7 @@ class App extends Component {
     this.pastScrollBoundary = false;
 
     window.addEventListener('scroll', this.onScroll);
-    window.addEventListener('scroll', this.onResize);
+    window.addEventListener('resize', this.onResize);
   }
 
   componentWillUnmount() {

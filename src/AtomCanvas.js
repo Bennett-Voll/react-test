@@ -41,16 +41,12 @@ class AtomCanvas extends Component {
         });
 
         Trigger.on('windowResize', (dimensions) => {
-            this.setState({
-                width: dimensions.width,
-                height: dimensions.height,
-            });
+            this.width = dimensions.width;
+            this.height = dimensions.height;
         });
 
-        this.state = {
-            width: window.innerWidth,
-            height: window.innerHeight,
-        };
+        this.width = window.innerWidth;
+        this.height = window.innerHeight;
 
         this.updateCanvas = this.updateCanvas.bind(this);
     }
@@ -101,14 +97,10 @@ class AtomCanvas extends Component {
         requestAnimationFrame(this.updateCanvas);
     }
 
-    shouldComponentUpdate(newProps, newState) {
-        return this.state.width !== newState.width && this.state.height !== newState.height;
-    }   
-
     updateCanvas() {
         const ctx = this.ctx;
-        const width = this.state.width;
-        const height = this.state.height;
+        const width = this.width;
+        const height = this.height;
         const size = Math.min(width, height) * this.animatable.size;
 
         const atomDisplacement = this.atomDisplacement;
@@ -221,9 +213,11 @@ class AtomCanvas extends Component {
                 id="atom-canvas"
                 className="canvas"
                 style={{... styleCanvas}}
-                width={this.state.width} 
-                height={this.state.height}
-                ref={(c) => this.ctx = c.getContext('2d')}
+                width={this.width} 
+                height={this.height}
+                ref={(c) => {
+                    if (c) this.ctx = c.getContext('2d')
+                }}
             />
         );
     }
