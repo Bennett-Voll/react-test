@@ -8,10 +8,42 @@ import { map, Trigger, Animation, Trans, Vector } from '../helpers';
 class AtomCanvas extends Component {
     constructor(props) {
         super(props);
-
-        this.animation = Animation.dummy();
         
+        // relative centerpoint for both the ellipses as the cricle
+        const vCenter = new Vector(255 / 2, 255 / 2);
+
+        // define properties of the ellipses
+        this.ellipses =  [
+            {
+                rotation: Vector.toRad(30),
+                position: vCenter.clone(),
+                radiusX: 30,
+                radiusY: 255 / 2,
+            },
+            {
+                rotation: Vector.toRad(120 + 30),
+                position: vCenter.clone(),
+                radiusX: 30,
+                radiusY: 255 / 2,
+            },
+            {
+                rotation: Vector.toRad(240 + 30),
+                position: vCenter.clone(),
+                radiusX: 30,
+                radiusY: 255 / 2,
+            },
+        ];
+
+        // define properties of the circles
+        this.circles = [
+            {
+                position: vCenter.clone(),
+                radius: 20,
+            }
+        ];
+
         // intro animations
+        // TODO: check what influence these have when the component unmounts and immediately mounts
         Trigger.on('introScroll', (pastBoundary) => {
             this.animation.stop();
 
@@ -48,38 +80,11 @@ class AtomCanvas extends Component {
     }
 
     componentDidMount() {
-        // relative centerpoint for both the ellipses as the cricle
-        const vCenter = new Vector(255 / 2, 255 / 2);
+        if (this.animation) {
+            this.animation.stop();
+        }
 
-        // define properties of the ellipses
-        this.ellipses =  [
-            {
-                rotation: Vector.toRad(30),
-                position: vCenter.clone(),
-                radiusX: 30,
-                radiusY: 255 / 2,
-            },
-            {
-                rotation: Vector.toRad(120 + 30),
-                position: vCenter.clone(),
-                radiusX: 30,
-                radiusY: 255 / 2,
-            },
-            {
-                rotation: Vector.toRad(240 + 30),
-                position: vCenter.clone(),
-                radiusX: 30,
-                radiusY: 255 / 2,
-            },
-        ];
-
-        // define properties of the circles
-        this.circles = [
-            {
-                position: vCenter.clone(),
-                radius: 20,
-            }
-        ];
+        this.animation = Animation.dummy();
 
         this.animatable = {
             atomFreq: 120,
@@ -90,7 +95,11 @@ class AtomCanvas extends Component {
 
         this.atomDisplacement = 0;
 
-        requestAnimationFrame(this.updateCanvas);
+        Trigger.on('frame', this.updateCanvas);
+    }
+
+    componentWillUnmount() {
+        Trigger.off('frame', this.updateCanvas);
     }
 
     updateCanvas() {
@@ -189,8 +198,6 @@ class AtomCanvas extends Component {
             ctx.fillStyle = `rgb(${rgb.join(',')})`;
             ctx.fill();
         });
-
-        requestAnimationFrame(this.updateCanvas);
     }
 
     render() {
