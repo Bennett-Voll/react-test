@@ -85,7 +85,7 @@ class App extends Component {
 
     Trigger.fire('frame', (new Date()).getTime());
 
-    requestAnimationFrame(this.listen)
+    requestAnimationFrame(this.listen);
   }
 
   /**
