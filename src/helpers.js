@@ -1,4 +1,5 @@
-
-export function map(val, start1, end1, start2, end2) {
-    return (val - start1) / (end1 - start1) * (end2 - start2) + start2;
-}
+export { Trans } from './helpers/Transitions';
+export { Trigger } from './helpers/Trigger';
+export { Animation } from './helpers/Animation';
+export { Vector } from './helpers/Vector';
+export { map } from './helpers/general';

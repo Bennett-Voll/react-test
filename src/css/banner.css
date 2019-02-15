@@ -1,0 +1,14 @@
+#banner {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 2vh;
+    height: 100vh;
+}
+
+#banner .text-banner {
+    font-size: 4.6em;
+    font-family: Oxygen, Helvetica, sans-serif;
+    font-weight: bolder;
+    color: #61D9FA;
+}
