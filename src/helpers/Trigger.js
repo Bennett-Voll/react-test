@@ -70,7 +70,7 @@ Trigger.on = (id, callback) => {
  * @param {Function} callback
  */
 Trigger.off = (id, callback) => {
-    Trigger.triggers[id].add(callback);
+    Trigger.triggers[id].remove(callback);
 }
 
 /**
