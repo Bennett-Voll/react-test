@@ -48,7 +48,7 @@ p:not(:last-child) {
 
 .header-1,
 .header-2,
-.header { color: #61D9FA;  }
+.header { color: #61D9FA; }
 
 .header-1 { font-size: 2.5em; }
 .header-2 { font-size: 2.3em; }
