@@ -131,7 +131,13 @@ export class Vector {
     }
 }
 
-
+/**
+ * Relative difference in angle. Can be negative
+ * 
+ * @param {Vector} vect1
+ * @param {Vector} vect2
+ * @returns {Number}
+ */
 Vector.angleDifference = (vect1, vect2) => {
     let difference = vect1.direction() - vect2.direction();
 
@@ -146,18 +152,33 @@ Vector.angleDifference = (vect1, vect2) => {
     return difference;
 };
 
-Vector.dotProduct = function (vect1, vect2) {
+/**
+ * The dot product
+ * 
+ * @param {Vector} vect1
+ * @param {Vector} vect2
+ * @returns {Number}
+ */
+Vector.dotProduct = (vect1, vect2) => {
     return vect1.x * vect2.x + vect1.y * vect2.y;
 }
 
-Vector.areParralel = function (vect1, vect2) {
-    return Vector.dotProduct(vect1.clone().lookLeft(), vect2) == 0;
+/**
+ * Convert to radians
+ * 
+ * @param {Number} degree
+ * @return {Number}
+ */
+Vector.toRad = function (degree) {
+    return degree / 180 * Math.PI;
 }
 
-Vector.toRad = function (deg) {
-    return deg / 180 * Math.PI;
-}
-
-Vector.toDeg = function (rad) {
-    return rad * 180 / Math.PI;
+/**
+ * Convert to degrees
+ * 
+ * @param {Number} radians
+ * @return {Number}
+ */
+Vector.toDeg = function (radians) {
+    return radians * 180 / Math.PI;
 }
