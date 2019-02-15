@@ -39,7 +39,14 @@ class Page extends Component {
                     </Col>
                 </Section>
                 <Section section_row="2">
-                     
+                     <Col md={6}>
+                        <div className="text header-1">
+                            Wow! So good!
+                        </div>
+                        <div className="text text-normal">
+                            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+                        </div>
+                     </Col>
                 </Section>
             </div>
         );
