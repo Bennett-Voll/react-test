@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoadBootstrap from './header/LoadBootstrap';
+import Header from './templates/Header';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -122,6 +123,7 @@ class App extends Component {
     return (
       <div id="app">
         <LoadBootstrap />
+        <Header />
         <Switch>
           <Route exact path="/" component={PageHome} />
           <Route component={Page404} />

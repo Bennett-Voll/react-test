@@ -14,7 +14,6 @@ class PageHome extends Component {
             <div id="home">
                 <AtomCanvas />
                 <div id="foreground">
-                <Header />
                 <Banner />
                 <Page />
                 </div>

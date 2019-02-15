@@ -9,8 +9,7 @@ class Page404 extends Component {
 
     render() {
         return (
-            <div id="home">
-                <Header />
+            <div id="404">
                 <Page />
             </div>
         );
