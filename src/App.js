@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import LoadBootstrap from './header/LoadBootstrap';
-import Header from './templates/Header';
-import Page from './pages/home/Page';
-import AtomCanvas from './templates/AtomCanvas';
-import Banner from './templates/Banner';
 
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { Trigger } from './helpers';
+
+import PageHome from './pages/home/PageHome';
+import Page404 from './pages/page404/Page404';
 
 import './css/main.css';
 
@@ -119,12 +118,10 @@ class App extends Component {
     return (
       <div id="app">
         <LoadBootstrap />
-        <AtomCanvas />
-        <div id="foreground">
-          <Header />
-          <Banner />
-          <Page />
-        </div>
+        <Switch>
+          <Route exact path="/" component={PageHome} />
+          <Route component={Page404} />
+        </Switch>
       </div>
     );
   }
