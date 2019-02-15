@@ -20,14 +20,16 @@ header .main-nav {
 }
 
 header .main-nav .nav-item {
-    color: #61D9FA;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
+    color: #fff;
+    font-size: 1.15em;
+    font-weight: 100;
+    text-decoration: none;
     padding: 0 15px;
-    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-family: Oxygen, Helvetica, sans-serif;
     transition: 300ms ease-in-out;
 }
+
+header .main-nav .nav-item:hover { color: #61D9FA; }
 
 header .main-nav .nav-item:last-child {
     padding-right: 0;

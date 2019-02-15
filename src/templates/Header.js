@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import logo from '../img/logo.svg';
 
+import { Link } from 'react-router-dom';
+
 import { Trigger } from '../helpers';  
 
 import '..//css/header.css';
@@ -31,9 +33,18 @@ class Header extends Component {
         }
 
         const navItems = [
-            'Home',
-            'About',
-            'Contact',
+            {
+                text: 'Home',
+                to: '/'
+            },
+            {
+                text: 'About',
+                to: '/about',
+            },
+            {
+                text: 'Contact',
+                to: '/contact',
+            },
         ];
 
         const styleHeader = {
@@ -58,7 +69,7 @@ class Header extends Component {
                             <div className="main-nav">
                                 {
                                     navItems
-                                        .map(t => <div className="nav-item">{t}</div>)
+                                        .map(t => <Link {...t} className="nav-item">{t.text}</Link>)
                                         .reduce((prev, curr) => [prev, curr])
                                 }
                             </div>
