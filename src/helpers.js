@@ -15,8 +15,11 @@ export function map(val, start1, end1, start2, end2) {
 }
 
 /**
- * A class in which callbacks can be stored and triggered all at once
+ * A class in which callbacks can be stored and triggered all at once.
  * Multiple arguments can be passed trough
+ * 
+ * @export
+ * @class Trigger
  */
 export class Trigger {
     constructor() {

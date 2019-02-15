@@ -9,13 +9,21 @@ import { Trigger } from './helpers';
 
 import './css/main.css';
 
-/**
+/*
  * @view https://react-bootstrap.github.io/
  * @view https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
  * @view Where to use which livecycle update for what
  * @view https://www.valentinog.com/blog/redux/#React_Redux_tutorial_who_this_guide_is_for
  * @view https://reacttraining.com/react-router/web/example/auth-workflow
  * 
+ */
+
+/**
+ * The "html tag of React componenets".
+ * Puts the page together and handles a multitude of triggers
+ *
+ * @class App
+ * @extends {Component}
  */
 class App extends Component {
   constructor(props) {
@@ -48,6 +56,13 @@ class App extends Component {
     this.listen();
   }
 
+  /**
+   * Listen to variables and execute a trigger if changes occur
+   * Listen is preferenced over normal evenlisteners, as it increases accuracy whenever eg scrolling
+   * and resizing is used in combination with setTimeout or requestAnimationFrame
+   *
+   * @memberof App
+   */
   listen() {
     if (window.innerWidth !== this.window.width ||
       window.innerHeight !== this.window.height) {
@@ -76,6 +91,11 @@ class App extends Component {
     requestAnimationFrame(this.listen)
   }
 
+  /**
+   * Onscroll event
+   *
+   * @memberof App
+   */
   onScroll() {
     const scrollY = this.scroll.scrollY;
     const scrollBoundary = this.scrollBoundary;
