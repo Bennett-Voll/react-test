@@ -11,18 +11,6 @@ import Page404 from './pages/page404/Page404';
 
 import './css/main.css';
 
-/*
- * @view https://react-bootstrap.github.io/
- * @view https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
- * @view Where to use which livecycle update for what
- * @view https://www.valentinog.com/blog/redux/#React_Redux_tutorial_who_this_guide_is_for
- * @view https://reacttraining.com/react-router/web/example/auth-workflow
- * @view https://stackoverflow.com/questions/37200080/how-to-export-imported-object-in-es6
- * @view https://react-bootstrap.github.io/layout/grid/
- * @view https://medium.com/@ktruong008/absolute-imports-with-create-react-app-4338fbca7e3d
- * 
- */
-
 /**
  * The "html tag of React componenets".
  * Puts the page together and handles a multitude of triggers
