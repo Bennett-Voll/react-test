@@ -43,6 +43,8 @@ class App extends Component {
     Trigger.add('scroll');
     Trigger.add('introScroll');
 
+    Trigger.add('frame');
+
     Trigger.on('scroll', this.onScroll);
 
     this.window = {
@@ -89,6 +91,8 @@ class App extends Component {
         ...this.scroll,
       });
     }
+
+    Trigger.fire('frame', (new Date()).getTime());
 
     requestAnimationFrame(this.listen)
   }
