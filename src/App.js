@@ -21,88 +21,75 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.scrollBoundary = 0;
+    this.pastScrollBoundary = false;
+    
+    this.listen = this.listen.bind(this);
+    this.onScroll = this.onScroll.bind(this);
+
+    // note that these Triggers only fire upon each animation frame so to improve performance
+    // if a different kind of behaviour is required, then don't use these
     Trigger.add('windowResize');
     Trigger.add('scroll');
     Trigger.add('introScroll');
 
-    this.onScroll = this.onScroll.bind(this);
-    this.onResize = this.onResize.bind(this); 
-
-    // the below are used to store the ids returned by requestAnimationFrame
-    // so to not repeat a callback multiple times during a frame 
-    this.frameScroll = null;
-    this.frameResize = null;
+    Trigger.on('scroll', this.onScroll);
 
     this.window = {
       width: window.innerWidth,
       height: window.innerHeight,
     };
+
+    this.scroll = {
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    };
+
+    this.listen();
   }
 
-  componentDidMount() {
-    this.scrollBoundary = 10;
-    this.pastScrollBoundary = false;
+  listen() {
+    if (window.innerWidth !== this.window.width ||
+      window.innerHeight !== this.window.height) {
+      this.window = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+      };
 
-    window.addEventListener('scroll', this.onScroll);
-    window.addEventListener('resize', this.onResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onScroll);
-    window.removeEventListener('resize', this.onResize);
-  }
-
-  onScroll() {
-    if (this.frameScroll) {
-      return;
+      Trigger.fire('windowResize', {
+        ...this.window,
+      });
     }
 
-    this.frameScroll = requestAnimationFrame(() => {
-      this.frameScroll = null;
-
+    if (this.scroll.scrollX !== window.scrollX ||
+      this.scroll.scrollY !== window.scrollY) {
       this.scroll = {
         scrollX: window.scrollX,
         scrollY: window.scrollY,
       };
 
-      Trigger.fire('scroll', this.scroll);
-
-      const scrollY = this.scroll.scrollY;
-      const scrollBoundary = this.scrollBoundary;
-      const pastScrollBoundary = this.pastScrollBoundary;
-
-      if (scrollY > scrollBoundary && !pastScrollBoundary) {
-        Trigger.fire('introScroll', true);
-        this.pastScrollBoundary = true;
-      }
-
-      if (scrollY <= scrollBoundary && pastScrollBoundary) {
-        Trigger.fire('introScroll', false);
-        this.pastScrollBoundary = false;
-      }
-    });
-  }
-
-  onResize() {
-    if (this.frameResize) {
-      return;
+      Trigger.fire('scroll', {
+        ...this.scroll,
+      });
     }
 
-    this.frameResize = requestAnimationFrame(() => {
-      this.frameResize = null;
-      
-      if (window.innerWidth !== this.window.width ||
-        window.innerHeight !== this.window.height) {
-        Trigger.fire('windowResize', {
-          ...this.window,
-        });
-      }
+    requestAnimationFrame(this.listen)
+  }
 
-      this.window = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-      };
-    });
+  onScroll() {
+    const scrollY = this.scroll.scrollY;
+    const scrollBoundary = this.scrollBoundary;
+    const pastScrollBoundary = this.pastScrollBoundary;
+
+    if (scrollY > scrollBoundary && !pastScrollBoundary) {
+      Trigger.fire('introScroll', true);
+      this.pastScrollBoundary = true;
+    }
+
+    if (scrollY <= scrollBoundary && pastScrollBoundary) {
+      Trigger.fire('introScroll', false);
+      this.pastScrollBoundary = false;
+    }
   }
 
   render() {
