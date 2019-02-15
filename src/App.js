@@ -18,6 +18,8 @@ import './css/main.css';
  * @view https://www.valentinog.com/blog/redux/#React_Redux_tutorial_who_this_guide_is_for
  * @view https://reacttraining.com/react-router/web/example/auth-workflow
  * @view https://stackoverflow.com/questions/37200080/how-to-export-imported-object-in-es6
+ * @view https://react-bootstrap.github.io/layout/grid/
+ * @view https://medium.com/@ktruong008/absolute-imports-with-create-react-app-4338fbca7e3d
  * 
  */
 
