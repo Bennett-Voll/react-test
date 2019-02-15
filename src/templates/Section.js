@@ -8,33 +8,42 @@ class Section extends Component {
     constructor(props) {
         super(props);
 
-        Trigger.on('scroll', (scroll) => {
-            const el = ReactDOM.findDOMNode(this);
-            const offsets = el.getBoundingClientRect();
-
-            const pastElement = offsets.top + el.offsetHeight < window.innerHeight;
-            const inView = this.state.inView;
-
-            if (pastElement && ! inView) {
-                this.setState({
-                    inView: true,
-                });
-            }
-            
-            if (! pastElement && inView) {
-                this.setState({
-                    inView: false,
-                });
-            }
-        });
-
         this.state = {
             className: '',
         };
+
+        this.onScroll = this.onScroll.bind(this);
+    }
+
+    componentDidMount() {
+        Trigger.on('scroll', this.onScroll);
+    }
+
+    componentWillUnmount() {
+        Trigger.off('scroll', this.onScroll);
+    }
+
+    onScroll() {
+        const el = ReactDOM.findDOMNode(this);
+        const offsets = el.getBoundingClientRect();
+
+        const pastElement = offsets.top + el.offsetHeight < window.innerHeight;
+        const inView = this.state.inView;
+
+        if (pastElement && ! inView) {
+            this.setState({
+                inView: true,
+            });
+        }
+        
+        if (! pastElement && inView) {
+            this.setState({
+                inView: false,
+            });
+        }
     }
 
     render() {
-        
         const containerProps = this.props.containerProps || {};
         const rowProps = this.props.rowProps || {};
 
