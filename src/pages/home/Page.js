@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
-import Section from './Section';
+import Section from '../../templates/Section';
 
-import './css/page.css';
+import '../../css/home/page.css';
 
 class Page extends Component {
     constructor(props) {

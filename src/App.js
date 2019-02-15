@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import LoadBootstrap from './header/LoadBootstrap';
-import Header from './Header';
-import Page from './Page';
-import AtomCanvas from './AtomCanvas';
-import Banner from './Banner';
+import Header from './templates/Header';
+import Page from './pages/home/Page';
+import AtomCanvas from './templates/AtomCanvas';
+import Banner from './templates/Banner';
+
+import { Route } from 'react-router-dom';
 
 import { Trigger } from './helpers';
 
@@ -15,6 +17,7 @@ import './css/main.css';
  * @view Where to use which livecycle update for what
  * @view https://www.valentinog.com/blog/redux/#React_Redux_tutorial_who_this_guide_is_for
  * @view https://reacttraining.com/react-router/web/example/auth-workflow
+ * @view https://stackoverflow.com/questions/37200080/how-to-export-imported-object-in-es6
  * 
  */
 

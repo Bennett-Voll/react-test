@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import logo from './img/logo.svg';
 
-import './css/banner.css';
+import '../css/banner.css';
 
 class Banner extends Component {
     constructor(props) {

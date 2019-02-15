@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 
-import { Trigger } from './helpers';
+import { Trigger } from '../helpers';
 
 class Section extends Component {
     constructor(props) {

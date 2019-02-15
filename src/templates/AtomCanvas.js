@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import Vector from './vector';
-import { map } from './helpers';
-import Trans from './transitions';
-import Animation from './animation';
 
-import { Trigger } from './helpers';    
+import { map, Trigger, Animation, Trans, Vector } from '../helpers';    
 
 /**
  * @todo Refactor code
@@ -140,8 +136,7 @@ class AtomCanvas extends Component {
                 const offset = Math.PI * 2 / iterations * i + atomDisplacement;
                 const point = new Vector(radiusX * Math.cos(offset), radiusY * Math.sin(offset));
 
-                const vect = Vector.add(
-                    absPosition,
+                const vect = absPosition.clone().add(
                     point.scale(size / 255).setDirection(point.direction() + rotation),
                 );
 

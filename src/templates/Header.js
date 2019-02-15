@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import logo from './img/logo.svg';
+import logo from '../img/logo.svg';
 
-import { Trigger } from './helpers';  
+import { Trigger } from '../helpers';  
 
-import './css/header.css';
+import '..//css/header.css';
 
 class Header extends Component {
     constructor(props) {
