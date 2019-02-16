@@ -22,7 +22,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.scrollBoundary = 0;
+    this.scrollBoundary = window.innerHeight;
     this.pastScrollBoundary = false;
     
     this.listen = this.listen.bind(this);
@@ -37,6 +37,10 @@ class App extends Component {
     Trigger.add('frame');
 
     Trigger.on('scroll', this.onScroll);
+
+    Trigger.on('windowResize', (dimensions) => {
+      this.pastScrollBoundary = dimensions.height;
+    });
 
     this.window = {
       width: window.innerWidth,
