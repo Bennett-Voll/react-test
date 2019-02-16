@@ -11,5 +11,5 @@
     font-size: 4.6em;
     font-family: Montserrat, Helvetica, sans-serif;
     font-weight: 200;
-    color: #FFC4EB;
+    color: var(--color-tone-5);
 }
