@@ -8,3 +8,6 @@ https://medium.com/@ktruong008/absolute-imports-with-create-react-app-4338fbca7e
 
 Where to use which livecycle update for what
 CSS styled components
+
+// color pallet
+https://coolors.co/20232a-5b525b-aa5571-b5707f-f9d4ed
