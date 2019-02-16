@@ -22,9 +22,13 @@ export const map = (val, start1, end1, start2, end2) => {
  * @returns {Number}
  */
 export const cap = (val, minOrMax, max = null) => {
+    let min;
+    
     if (max === null) {
         max = minOrMax;
         min = 0;
+    } else {
+        min = minOrMax;
     }
 
     return val < min ? min : (val > max ? max : val);
