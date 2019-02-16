@@ -1,4 +1,5 @@
 #banner {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -8,7 +9,7 @@
 
 #banner .text-banner {
     font-size: 4.6em;
-    font-family: Oxygen, Helvetica, sans-serif;
-    font-weight: bolder;
-    color: #61D9FA;
+    font-family: Montserrat, Helvetica, sans-serif;
+    font-weight: 200;
+    color: #FFC4EB;
 }

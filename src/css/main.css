@@ -1,9 +1,16 @@
 /*+++ IMPORT +++*/
 
-@import url('https://fonts.googleapis.com/css?family=Oxygen:300,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200');
 
 /*+++ BODY / GLOBALS +++*/
-html { font-size: 14px; }
+html {
+  font-size: 14px;
+  --color-tone-1: #20232A;
+  --color-tone-2: #5B525B;
+  --color-tone-3: #AA5571;
+  --color-tone-4: #B5707F;
+  --color-tone-5: #F9D4ED;
+}
 body {
   margin: 0;
   padding: 0;
@@ -15,7 +22,7 @@ body {
 }
 
 #app {
-  background-color: #272B33;
+  background-color: var(--color-tone-2);
 }
 
 #foreground {
@@ -43,12 +50,12 @@ p:not(:last-child) {
 .text-normal {
   line-height: 2;
   font-size: 15px;
-  color: #fff;
+  color: var(--color-tone-5);
 }
 
 .header-1,
 .header-2,
-.header { color: #61D9FA; }
+.header { color: var(--color-tone-3); }
 
 .header-1 { font-size: 2.5em; }
 .header-2 { font-size: 2.3em; }

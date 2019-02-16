@@ -11,7 +11,6 @@ class PageHome extends Component {
     render() {
         return (
             <div id="home">
-                <AtomCanvas />
                 <div id="foreground">
                 <Banner />
                 <Page />

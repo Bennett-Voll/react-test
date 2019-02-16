@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import logo from '../img/logo.svg';
+import Logo from '../img/Logo';
 
 import { Link } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ class Header extends Component {
         let className = '';
 
         if (this.state.headerIsCollapsed) {
-            headerHeight = 40;
+            headerHeight = 60;
             className = 'intro';
         }
 
@@ -52,7 +52,7 @@ class Header extends Component {
         };
 
 
-        const styleImg = {
+        const styleLogo = {
             height: headerHeight,
         };
 
@@ -61,8 +61,8 @@ class Header extends Component {
                 <Container>
                     <Row>
                         <Col>
-                            <div id="logo">
-                                <img style={{... styleImg}} src={logo} alt="logo" />
+                            <div id="logo" style={{...styleLogo}}>
+                                <Logo />
                             </div>
                         </Col>
                         <Col style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'flex-end', }}>

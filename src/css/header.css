@@ -9,27 +9,28 @@ header {
 }
 
 header.intro {
-    background-color: #20232a;
+    background-color: var(--color-tone-1);
 }
 
 header .main-nav {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    border-top: 2px solid #61D9FA;
+    border-top: 2px solid var(--color-tone-4);
 }
 
 header .main-nav .nav-item {
-    color: #fff;
+    color: var(--color-tone-5);
     font-size: 1.15em;
     font-weight: 100;
     text-decoration: none;
     padding: 0 15px;
-    font-family: Oxygen, Helvetica, sans-serif;
+    font-family: Montserrat, Helvetica, sans-serif;
+    font-weight: 200;
     transition: 300ms ease-in-out;
 }
 
-header .main-nav .nav-item:hover { color: #61D9FA; }
+header .main-nav .nav-item:hover { color: var(--color-tone-4); }
 
 header .main-nav .nav-item:last-child {
     padding-right: 0;
@@ -37,9 +38,17 @@ header .main-nav .nav-item:last-child {
 
 header #logo {
     max-width: 100%;
+    padding: 2%;
+    transition: 300ms ease-in-out;
 }
 
-header #logo img {
+header #logo svg {
     display: block;
-    transition: 300ms ease-in-out;
+    height: 100%;
+    width: auto;
+    fill: var(--color-tone-3);
+}
+
+header #logo svg g {
+    fill: var(---color-tone-3);
 }

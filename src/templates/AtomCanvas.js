@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { map, Trigger, Animation, Trans, Vector } from '../helpers';    
+import { map, Trigger, cap, Vector } from '../helpers';    
 
 /**
  * @todo Refactor code
@@ -42,57 +42,33 @@ class AtomCanvas extends Component {
             }
         ];
 
-        // intro animations
-        // TODO: check what influence these have when the component unmounts and immediately mounts
-        Trigger.on('introScroll', (pastBoundary) => {
-            this.animation.stop();
-
-            if (pastBoundary) {
-                this.animation = Animation.animate(
-                    this.animatable,
-                    ['atomFreq', 'opacity', 'size'],
-                    [800, 0.3, 0.5],
-                    [500, 200, 200],
-                    Trans.easeInOutQuad,
-                    [0, 200, 0],
-                );
-            } else {
-                this.animation = Animation.animate(
-                    this.animatable,
-                    ['atomFreq', 'opacity', 'size'],
-                    [120, 1, 0.9],
-                    [200, 500, 200],
-                    Trans.easeInOutQuad,
-                    [300, 0, 0],
-                );
-            }
-        });
-
-        Trigger.on('windowResize', (dimensions) => {
-            this.width = dimensions.width;
-            this.height = dimensions.height;
-        });
-
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
+        this.animatable = {
+            atomFreq: 160,
+            opacity: 1,
+            size: 1,
+            offsetY: 0,
+        };
 
         this.updateCanvas = this.updateCanvas.bind(this);
+        this.calculateAnimatable = this.calculateAnimatable.bind(this);
+
+        Trigger.on('scroll', this.calculateAnimatable);
+        Trigger.on('windowResize', this.calculateAnimatable);
+
+        Trigger.on('windowResize', (dimensions) => {
+            this.setState({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        });
+
+        this.state = {
+            width: window.innerWidth,
+            height: window.innerHeight,
+        };
     }
 
     componentDidMount() {
-        if (this.animation) {
-            this.animation.stop();
-        }
-
-        this.animation = Animation.dummy();
-
-        this.animatable = {
-            atomFreq: 120,
-            opacity: 1,
-            size: 0.9,
-            offsetY: -10,
-        };
-
         this.atomDisplacement = 0;
 
         Trigger.on('frame', this.updateCanvas);
@@ -102,14 +78,26 @@ class AtomCanvas extends Component {
         Trigger.off('frame', this.updateCanvas);
     }
 
+    calculateAnimatable() {
+        const scrollY = window.scrollY;
+        const height = window.innerHeight;
+
+        this.animatable = {
+            atomFreq: cap(map(scrollY, 0, height, 160, 800), 160, 800),
+            opacity: cap(map(scrollY, 0, height, 1, 0.3), 0.3, 1),
+            size: cap(map(scrollY, 0, height, 1, 0.3), 0.3, 1),
+            offsetY: cap(map(scrollY, 0, height, 0, 255 / 2), 0, 255 / 2),
+        };
+    }
+
     updateCanvas() {
         const ctx = this.ctx;
-        const width = this.width;
-        const height = this.height;
+        const width = this.state.width;
+        const height = this.state.height;
         const size = Math.min(width, height) * this.animatable.size;
 
-        const atomDisplacement = this.atomDisplacement;
-        this.atomDisplacement += map(1, 0, this.animatable.atomFreq, 0, Math.PI * 2)
+        const atomDisplacement = this.atomDisplacement + Math.PI;
+        this.atomDisplacement += map(1, 0, this.animatable.atomFreq, 0, Math.PI * 2);
 
         ctx.globalAlpha = this.animatable.opacity;
 
@@ -118,11 +106,12 @@ class AtomCanvas extends Component {
         const ellipses = this.ellipses;
         const circles = this.circles;
 
-        const iterations = 80;
+        const iterations = 60;
 
         ctx.clearRect(0, 0, width, height);
         ctx.lineWidth = Math.round(5 / 255 * size);
-        ctx.lineCap = 'butt';
+        ctx.strokeStyle = '#AA4465';
+        ctx.fillStyle = '#AA4465';
 
         // draw ellipses
         ellipses.forEach((ellipse) => {
@@ -140,39 +129,27 @@ class AtomCanvas extends Component {
 
             let vectPrev = null;
 
-            // go over every point of the ellipse
-            for (let i = 0; i < iterations; i += 1) {                
+            ctx.beginPath();
+            
+            for (let i = Math.ceil(-iterations * 0.062); Math.floor(i < iterations * 0.063); i += 1) {                
                 const offset = Math.PI * 2 / iterations * i + atomDisplacement;
                 const point = new Vector(radiusX * Math.cos(offset), radiusY * Math.sin(offset));
 
                 const vect = absPosition.clone().add(
                     point.scale(size / 255).setDirection(point.direction() + rotation),
                 );
-
-                ctx.beginPath();
+                
 
                 if (vectPrev) {
-                    ctx.moveTo(Math.round(vectPrev.x), Math.round(vectPrev.y));
                     ctx.lineTo(Math.round(vect.x), Math.round(vect.y));
                 } else {
                     ctx.moveTo(Math.round(vect.x), Math.round(vect.y));
                 }
-
-                // higher iteration === color more like on the right side
-                const rgb = [
-                    map(i, 0, iterations - 1, 38, 97),
-                    map(i, 0, iterations - 1, 42, 217),
-                    map(i, 0, iterations - 1, 50, 250),
-                ];
-
-                ctx.strokeStyle = `rgb(${rgb.join(',')})`;
-
-                ctx.stroke();   
                 
                 vectPrev = vect;
             }
 
-            ctx.closePath();
+            ctx.stroke();
         });
 
         // drawing circles
@@ -187,15 +164,10 @@ class AtomCanvas extends Component {
             absPosition.x *= width;
             absPosition.y *= height;
 
-            ctx.arc(absPosition.x, absPosition.y, radius / 255 * size, 0, Math.PI * 2);
-            
-            const rgb = [
-                97,
-                217,
-                250,
-            ];
+            ctx.beginPath();
 
-            ctx.fillStyle = `rgb(${rgb.join(',')})`;
+            ctx.arc(absPosition.x, absPosition.y, radius / 255 * size, 0, Math.PI * 2);
+
             ctx.fill();
         });
     }
@@ -203,11 +175,13 @@ class AtomCanvas extends Component {
     render() {
         const styleCanvas = {
             display: 'block',
-            position: 'fixed',
+            position: 'absolute',
             top: '0',
             left: '0',
             right: '0',
             bottom: '0',
+            width: '100%',
+            height: '100%',
         };
 
         return (
@@ -215,10 +189,10 @@ class AtomCanvas extends Component {
                 id="atom-canvas"
                 className="canvas"
                 style={{... styleCanvas}}
-                width={this.width} 
-                height={this.height}
+                width={this.state.width} 
+                height={this.state.height}
                 ref={(c) => {
-                    if (c) this.ctx = c.getContext('2d')
+                    if (c) this.ctx = c.getContext('2d');
                 }}
             />
         );
