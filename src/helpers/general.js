@@ -31,5 +31,13 @@ export const cap = (val, minOrMax, max = null) => {
         min = minOrMax;
     }
 
-    return val < min ? min : (val > max ? max : val);
+    if (val < min) {
+        return min;
+    }
+
+    if (val > max) {
+        return max;
+    }
+
+    return val;
 }
