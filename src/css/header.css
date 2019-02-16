@@ -16,7 +16,6 @@ header .main-nav {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    border-top: 2px solid var(--color-tone-4);
 }
 
 header .main-nav .nav-item {
