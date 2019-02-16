@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { map, Trigger, cap, Vector } from '../helpers';    
+import { map, Trigger, cap, Vector } from '../helpers';
 
 /**
  * @todo Refactor code
@@ -42,18 +42,13 @@ class AtomCanvas extends Component {
             }
         ];
 
-        this.animatable = {
-            atomFreq: 160,
-            opacity: 1,
-            size: 1,
-            offsetY: 0,
-        };
-
         this.updateCanvas = this.updateCanvas.bind(this);
         this.calculateAnimatable = this.calculateAnimatable.bind(this);
 
         Trigger.on('scroll', this.calculateAnimatable);
         Trigger.on('windowResize', this.calculateAnimatable);
+
+        this.calculateAnimatable();
 
         Trigger.on('windowResize', (dimensions) => {
             this.setState({
@@ -106,7 +101,8 @@ class AtomCanvas extends Component {
         const ellipses = this.ellipses;
         const circles = this.circles;
 
-        const iterations = 60;
+        const length = 60;
+        const segmentLength = 6;
 
         ctx.clearRect(0, 0, width, height);
         ctx.lineWidth = Math.round(5 / 255 * size);
@@ -131,8 +127,8 @@ class AtomCanvas extends Component {
 
             ctx.beginPath();
             
-            for (let i = Math.ceil(-iterations * 0.062); Math.floor(i < iterations * 0.063); i += 1) {                
-                const offset = Math.PI * 2 / iterations * i + atomDisplacement;
+            for (let i = -segmentLength / 2; i < segmentLength / 2; i += 1) {                
+                const offset = Math.PI * 2 / length * i + atomDisplacement;
                 const point = new Vector(radiusX * Math.cos(offset), radiusY * Math.sin(offset));
 
                 const vect = absPosition.clone().add(
