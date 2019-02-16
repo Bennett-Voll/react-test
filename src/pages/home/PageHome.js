@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Page from './Page';
-import AtomCanvas from '../../templates/AtomCanvas';
 import Banner from '../../templates/Banner';
 
 class PageHome extends Component {
