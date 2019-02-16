@@ -5,7 +5,7 @@
  * @class Vector
  */
 export class Vector {
-    constructor(x = 0, y = 0) {
+    constructor(x = Math.sqrt(0.5), y = Math.sqrt(0.5)) {
         this.x = x;
         this.y = y;
     }
@@ -78,12 +78,13 @@ export class Vector {
     /**
      * Change the magnitude of the vector to one, but perserve the direction
      *
+     * @param {Number} scale Scale the vecter immediately and conviently
      * @returns {Vector} The current vector
      * @memberof Vector
      */
-    normalize() {
+    normalize(scale = 1) {
         let mag = this.mag();
-        return (this.x /= mag, this.y /= mag, this);
+        return (this.x *= scale / mag, this.y *= scale / mag, this);
     }
 
     /**
