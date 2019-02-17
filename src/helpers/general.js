@@ -41,3 +41,32 @@ export const cap = (val, minOrMax, max = null) => {
 
     return val;
 }
+
+/**
+ * Retrieve a random range.
+ * In floating point mode, range is [min,max).
+ * In whole number mode, range is [min, max].
+ * 
+ * @param {Number} minOrMax Max = 0 and min = 0 if the second parameter isn't given. If it is, then this is min
+ * @param {Number} max 
+ * @param {Boolean} wholeNumbers
+ * @return {Number}
+ */
+export const rand = (minOrMax, max = null, wholeNumbers = false) => {
+    let min;
+    
+    if (max !== null) {
+        min = minOrMax;
+    } else {
+        min = 0;
+        max = minOrMax;
+    }
+
+    if (wholeNumbers) {
+        max += 1;
+
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    return (Math.random() * (max - min)) + min;
+};
