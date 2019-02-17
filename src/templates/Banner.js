@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import Text from '../typography/Text';
 import AtomCanvas from './AtomCanvas'
 
 import '../css/banner.css';
@@ -15,9 +16,9 @@ class Banner extends Component {
                 <AtomCanvas />
                 <Row>
                     <Col>
-                        <div className="text text-banner">
+                        <Text className="text-banner">
                             Vector
-                        </div>
+                        </Text>
                     </Col>
                 </Row>
             </Container>

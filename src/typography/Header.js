@@ -3,14 +3,17 @@ import Text from './Text';
 
 const Header = (props) => {
     const style = {
-        lineHeight: '1',
-        fontSize: '2em',
-        color: '#61D9FA',
         ...props,
     };
     
+    let className = '';
+
+    if (props.size) {
+        className += ` header-${props.size}`;
+    }
+
     return (
-        <Text style={style} {...props}>{props.children}</Text>
+        <Text style={style} {...props} className={`header ${className} ${props.className}`}>{props.children}</Text>
     );
 }
 

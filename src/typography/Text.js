@@ -2,12 +2,17 @@ import React from 'react';
 
 const Text = (props) => {
     const style = {
-        fontFamily: 'Arial, Helvetica, sans-serif',
         ...props,
     };
+
+    let className = '';
+
+    if (props.className) {
+        className += ` ${props.className}`;
+    }
     
     return (
-        <p style={style} {...props}>{props.children}</p>
+        <p style={style} {...props} className={`text ${className}`}>{props.children}</p>
     );
 }
 

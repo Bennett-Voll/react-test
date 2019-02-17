@@ -36,8 +36,8 @@ header .main-nav .nav-item:last-child {
 }
 
 header #logo {
-    max-width: 100%;
-    padding: 2%;
+    max-width: 100%;    
+    padding: 3%;
     transition: 300ms ease-in-out;
 }
 
