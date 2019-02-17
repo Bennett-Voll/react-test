@@ -5,10 +5,9 @@ const Paragraph = (props) => {
     const style = {
         ...props,
     };
-
     
     return (
-        <Text style={style} {...props} className={'paragraph'}>{props.children}</Text>
+        <Text style={style} {...props} className={`paragraph ${props.className || ''}`}>{props.children}</Text>
     );
 }
 
