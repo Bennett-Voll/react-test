@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
 import Section from '../../templates/Section';
 
-// import '../../css/home/page.css';
+import Header from '../../typography/Header';
+import Para from '../../typography/Paragraph';
 
 class Page extends Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class Page extends Component {
             <div id="page" style={{ backgroundColor: '#fff', }}>
                 <Section section_row="1">
                     <Col md>
-                        404
+                        <Header className="font-type-2">404</Header>
+                        <Para>It seems we don't have what you were looking for.</Para>
                     </Col>
                 </Section>
             </div>

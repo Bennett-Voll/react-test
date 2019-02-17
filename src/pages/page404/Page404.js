@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Page from './Page';
 
+import '../../css/404.css';
+
 class Page404 extends Component {
     constructor(props) {
         super(props);
@@ -8,7 +10,7 @@ class Page404 extends Component {
 
     render() {
         return (
-            <div id="404">
+            <div id="page404">
                 <Page />
             </div>
         );

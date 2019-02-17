@@ -1,0 +1,15 @@
+#page404 .section_row_1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--color-tone-2);
+    text-align: center;
+}
+
+#page404 .section_row_1 .header {
+    color: var(--color-tone-4);
+    font-size: 3em;
+    font-weight: 300;
+    margin-bottom: 0.5em;
+}
