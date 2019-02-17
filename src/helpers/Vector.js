@@ -149,6 +149,15 @@ export class Vector {
     isParralelTo(vect) {
         return Vector.dotProduct(this.clone().lookLeft(), vect) === 0;
     }
+
+    /**
+     * Calculate the distance from this vector
+     * 
+     * @param {Vector} vect 
+     */
+    distanceTo(vect) {
+        return this.clone().sub(vect).mag();
+    }
 }
 
 /**
