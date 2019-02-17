@@ -78,7 +78,7 @@ class AtomCanvas extends Component {
         const height = window.innerHeight;
 
         this.animatable = {
-            atomFreq: cap(map(scrollY, 0, height, 160, 800), 160, 800),
+            atomFreq: cap(map(scrollY, 0, height, 220, 800), 220, 800),
             opacity: cap(map(scrollY, 0, height, 1, 0.3), 0.3, 1),
             size: cap(map(scrollY, 0, height, 1, 0.3), 0.3, 1),
             offsetY: cap(map(scrollY, 0, height, 0, 255 / 2), 0, 255 / 2),
