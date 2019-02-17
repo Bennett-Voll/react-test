@@ -38,7 +38,7 @@ class AtomCanvas extends Component {
         this.circles = [
             {
                 position: vCenter.clone(),
-                radius: 20,
+                radius: 10,
             }
         ];
 
@@ -50,7 +50,7 @@ class AtomCanvas extends Component {
 
         this.calculateAnimatable();
 
-        Trigger.on('windowResize', (dimensions) => {
+        Trigger.on('windowResize', () => {
             this.setState({
                 width: window.innerWidth,
                 height: window.innerHeight,
@@ -184,7 +184,7 @@ class AtomCanvas extends Component {
             <canvas
                 id="atom-canvas"
                 className="canvas"
-                style={{... styleCanvas}}
+                style={{...styleCanvas}}
                 width={this.state.width} 
                 height={this.state.height}
                 ref={(c) => {
