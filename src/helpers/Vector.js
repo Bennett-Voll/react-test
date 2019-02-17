@@ -5,7 +5,26 @@
  * @class Vector
  */
 export class Vector {
-    constructor(x = Math.sqrt(0.5), y = Math.sqrt(0.5)) {
+    /**
+     * If current form is component form, parameter 1 stands for the x axis and paramater 2 for the y axis.
+     * If not, then parameter 1 stands for the length and parameter 2 stands for the direction
+     * 
+     * @param {Number} param1 
+     * @param {Number} param2 
+     * @param {Boolean} compForm Whether the parameters given are in component form 
+     */
+    constructor(param1, param2, compForm = true) {
+        let x;
+        let y;
+
+        if (compForm) {
+            x = param1 !== undefined ? param1 : Math.sqrt(0.5);
+            y = param2 !=- undefined ? param2 : Math.sqrt(0.5);
+        } else {
+            x = Math.cos(param2) * param1;
+            y = Math.sin(param2) * param1;
+        }
+
         this.x = x;
         this.y = y;
     }
