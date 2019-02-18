@@ -40,6 +40,16 @@ export class Vector {
     }
 
     /**
+     * Return the magnitude squared. Faster than mag()
+     * 
+     * @returns {Number}
+     * @memberof Vector
+     */
+    magsq() {
+        return this.x * this.x + this.y * this.y;
+    }
+
+    /**
      * Scale the vector
      *
      * @param {Number} scalar
@@ -153,10 +163,34 @@ export class Vector {
     /**
      * Calculate the distance from this vector
      * 
-     * @param {Vector} vect 
+     * @param {Vector} vect
+     * @returns {Number}
+     * @memberof Vector 
      */
     distanceTo(vect) {
         return this.clone().sub(vect).mag();
+    }
+
+    /**
+     * Calculate the squared distance from this vector
+     * 
+     * @param {Vector} vect
+     * @returns {Number}
+     * @memberof Vector 
+     */
+    distancesq(vect) {
+        return this.clone().sub()
+    }
+    
+    /**
+     * Calculate the dotproduct
+     *
+     * @param {Vector} vect
+     * @returns {Number}
+     * @memberof Vector
+     */
+    dotProduct(vect) {
+
     }
 }
 

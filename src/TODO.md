@@ -14,3 +14,5 @@ https://coolors.co/20232a-5b525b-aa5571-b5707f-f9d4ed
 
 // link to logo generation
 https://codepen.io/anon/pen/OdaoBB
+
+- Align your vector library more along with this http://victorjs.org/
