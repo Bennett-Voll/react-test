@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
-import Codemirror from 'react-codemirror';
-
-import 'codemirror/mode/javascript/javascript';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/theme/3024-night.css';
 
 import Section from '../../templates/Section';
 import Header from '../../typography/Header';
 import Para from '../../typography/Paragraph';
 
+import CodeEditor from '../../templates/CodeEditor';
+
 import '../../css/home/page.css';
 
-const settings = {
-    height: "350px",
-    mode: 'javascript',
-    theme: '3024-night'
-}
 
 class Page extends Component {
     constructor(props) {
@@ -49,14 +41,14 @@ class Page extends Component {
                     </Col>
                 </Section>
                 <Section section_row="2">
-                     <Col md={6}>
+                     <Col md={4}>
                         <Header size="1">Wow! So good!</Header>
                         <Para className="color-1">
                             Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
                         </Para>
                      </Col>
-                     <Col md={6}>
-                        <Codemirror options={settings} />
+                     <Col md={8}>
+                        <CodeEditor />
                      </Col>
                 </Section>
             </div>
