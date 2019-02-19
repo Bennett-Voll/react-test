@@ -351,6 +351,16 @@ export class Vector {
     unFloat() {
         return (this.x = Math.round(this.x), this.y = Math.round(this.y), this);
     }
+
+    /**
+     * String representation
+     *
+     * @returns {String}
+     * @memberof Vector
+     */
+    toString() {
+        return `[${this.x}, ${this.y}]`;
+    }
 }
 
 /**
