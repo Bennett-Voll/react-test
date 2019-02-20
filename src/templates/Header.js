@@ -42,6 +42,10 @@ class Header extends Component {
                 to: '/about',
             },
             {
+                text: 'Docs',
+                to: '/docs',
+            },
+            {
                 text: 'Contact',
                 to: '/contact',
             },
