@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import { map, Trigger, cap, Vector } from '../helpers';
 
+import _ from 'underscore';
+
 /**
  * @todo Refactor code
  */
@@ -13,26 +15,17 @@ class AtomCanvas extends Component {
         const vCenter = new Vector(255 / 2, 255 / 2);
 
         // define properties of the ellipses
-        this.ellipses =  [
-            {
-                rotation: Vector.toRad(30),
+
+        const numberOfEllipses = 64;
+
+        this.ellipses = _.range(numberOfEllipses).map((e, i) => {
+            return {
+                rotation: Vector.toRad(360 / numberOfEllipses * i + 45),
                 position: vCenter.clone(),
                 radiusX: 30,
                 radiusY: 255 / 2,
-            },
-            {
-                rotation: Vector.toRad(120 + 30),
-                position: vCenter.clone(),
-                radiusX: 30,
-                radiusY: 255 / 2,
-            },
-            {
-                rotation: Vector.toRad(240 + 30),
-                position: vCenter.clone(),
-                radiusX: 30,
-                radiusY: 255 / 2,
-            },
-        ];
+            };
+        });
 
         // define properties of the circles
         this.circles = [
@@ -78,9 +71,9 @@ class AtomCanvas extends Component {
         const height = window.innerHeight;
 
         this.animatable = {
-            atomFreq: cap(map(scrollY, 0, height, 220, 800), 220, 800),
+            atomFreq: cap(map(scrollY, 0, height, 330, 900), 330, 900),
             opacity: cap(map(scrollY, 0, height, 1, 0.3), 0.3, 1),
-            size: cap(map(scrollY, 0, height, 1, 0.3), 0.3, 1),
+            size: cap(map(scrollY, 0, height, 0.9, 0.3), 0.3, 0.9),
             offsetY: cap(map(scrollY, 0, height, 0, 255 / 2), 0, 255 / 2),
         };
     }
@@ -102,15 +95,15 @@ class AtomCanvas extends Component {
         const circles = this.circles;
 
         const length = 60;
-        const segmentLength = 6;
+        const segmentLength = 8;
 
         ctx.clearRect(0, 0, width, height);
-        ctx.lineWidth = Math.round(5 / 255 * size);
+        ctx.lineWidth = Math.round(1.3 / 255 * size);
         ctx.strokeStyle = '#AA4465';
         ctx.fillStyle = '#AA4465';
 
         // draw ellipses
-        ellipses.forEach((ellipse) => {
+        ellipses.forEach((ellipse, j) => {
             const position = ellipse.position;
             const radiusX = ellipse.radiusX;
             const radiusY = ellipse.radiusY;
@@ -128,11 +121,11 @@ class AtomCanvas extends Component {
             ctx.beginPath();
             
             for (let i = -segmentLength / 2; i < segmentLength / 2; i += 1) {                
-                const offset = Math.PI * 2 / length * i + atomDisplacement;
+                const offset = Math.PI * 2 / length * i + atomDisplacement + (j % 2 === 0 ? Math.PI / 2 : 0);
                 const point = new Vector(radiusX * Math.cos(offset), radiusY * Math.sin(offset));
 
                 const vect = absPosition.clone().add(
-                    point.scale(size / 255).setDirection(point.direction() + rotation),
+                    point.scale(size / 255).addDirection(rotation),
                 );
                 
 
