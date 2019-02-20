@@ -78,7 +78,7 @@ export class Vector {
      * @memberof Vector
      */
     divide(scalar) {
-        this.scale(1 / scalar);
+        return this.scale(1 / scalar);
     }
 
     /**
@@ -114,6 +114,16 @@ export class Vector {
     }
 
     /**
+     * Get the direction of the vector in degree
+     *
+     * @returns {Number}
+     * @memberof Vector
+     */
+    directionDeg() {
+        return Vector.toDeg(Math.atan2(this.y, this.x));
+    }
+
+    /**
      * Change the direction of the vector
      *
      * @param {Number} radians
@@ -126,6 +136,17 @@ export class Vector {
     }
 
     /**
+     * Change the direction of the vector
+     *
+     * @param {Number} degree
+     * @returns {Vector} The current vector
+     * @memberof Vector
+     */
+    setDirectionDeg(degree) {
+        return this.setDirection(Vector.toRad(degree));
+    }
+
+    /**
      * Add to the direction of the vector
      * 
      * @param {Number} radians
@@ -133,6 +154,16 @@ export class Vector {
      */
     addDirection(radians) {
         return this.setDirection(this.direction() + radians);
+    }
+
+    /**
+     * Add to the direction of the vector
+     * 
+     * @param {Number} degree
+     * @returns {Vector} The current vector 
+     */
+    addDirectionDeg(degree) {
+        return this.addDirection(Vector.toRad(degree));
     }
 
     /**
@@ -405,7 +436,16 @@ Vector.toDeg = (radians) => radians * 180 / Math.PI;
  * Create a vector from a magnitude and a direction
  * 
  * @param {Number} magnitude
- * @param {Number} direction
+ * @param {Number} radians
  * @returns {Vector}
  */
-Vector.fromMag = (mag, dir) => new Vector(mag * Math.cos(dir), mag * Math.sin(dir));
+Vector.fromMag = (mag, rad) => new Vector(mag * Math.cos(rad), mag * Math.sin(rad));
+
+/**
+ * Create a vector from a magnitude and a direction in degrees
+ * 
+ * @param {Number} magnitude
+ * @param {Number} degree
+ * @returns {Vector}
+ */
+Vector.fromMagDeg = (mag, deg) => Vector.fromMag(mag, Vector.toRad(deg));
