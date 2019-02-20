@@ -17,7 +17,7 @@ class Banner extends Component {
                 <Row>
                     <Col>
                         <Text className="text-banner">
-                            Vector
+                            Vector js
                         </Text>
                     </Col>
                 </Row>
