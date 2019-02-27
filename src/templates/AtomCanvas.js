@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { map, Trigger, cap, Vector } from '../helpers';
+import { map, Trigger, cap, Vector } from 'helpers';
 
 import _ from 'underscore';
 

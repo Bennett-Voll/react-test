@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
 
-import Section from '../../templates/Section';
-import Header from '../../typography/Header';
-import Para from '../../typography/Paragraph';
+import Section from 'templates/Section';
+import Header from 'typography/Header';
+import Para from 'typography/Paragraph';
 
-import CodeEditor from '../../templates/CodeEditor';
+import CodeEditor from 'templates/CodeEditor';
 
-import '../../css/home/page.css';
+import 'css/home/page.css';
 
 const code1 = `
 const vectors = [];

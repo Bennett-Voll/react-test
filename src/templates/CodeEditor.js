@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {Controlled as CodeMirror} from 'react-codemirror2'
 
-import { Vector, Trigger } from '../helpers';
+import { Vector, Trigger } from 'helpers';
 
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/lib/codemirror.css';

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
-import Section from '../../templates/Section';
+import Section from 'templates/Section';
 
-import Header from '../../typography/Header';
-import Para from '../../typography/Paragraph';
+import Header from 'typography/Header';
+import Para from 'typography/Paragraph';
 
 class Page extends Component {
     constructor(props) {

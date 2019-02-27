@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import Text from '../typography/Text';
+import Text from 'typography/Text';
 import AtomCanvas from './AtomCanvas'
 
-import '../css/banner.css';
+import 'css/banner.css';
 
 class Banner extends Component {
     constructor(props) {
