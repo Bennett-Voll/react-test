@@ -13,7 +13,7 @@ const Header = (props) => {
     }
 
     return (
-        <Text style={style} {...props} className={`header ${className} ${props.className || ''}`}>{props.children}</Text>
+        <Text style={style} {...props} className={`header ${className.trim()} ${(props.className || '').trim()}`}>{props.children}</Text>
     );
 }
 

@@ -12,7 +12,7 @@ const Text = (props) => {
     }
     
     return (
-        <p style={style} {...props} className={`text ${className}`}>{props.children}</p>
+        <p style={style} {...props} className={`text ${className.trim()}`}>{props.children}</p>
     );
 }
 
