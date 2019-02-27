@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import Page from './Page';
-import Banner from '../../templates/Banner';
+import Banner from 'templates/Banner';
+import Footer from 'templates/Footer';
 
 class PageHome extends Component {
     constructor(props) {
@@ -13,6 +15,7 @@ class PageHome extends Component {
                 <div id="foreground">
                 <Banner />
                 <Page />
+                <Footer />
                 </div>
             </div>
         );
