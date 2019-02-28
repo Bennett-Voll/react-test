@@ -10,7 +10,7 @@ Where to use which livecycle update for what
 CSS styled components
 
 // color pallet
-https://coolors.co/20232a-5b525b-aa5571-b5707f-f9d4ed
+https://coolors.co/20232a-5b525b-aa5571-b5707f-ffffff
 
 // link to logo generation
 https://codepen.io/anon/pen/OdaoBB
